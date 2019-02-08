@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <button v-on:click="clearEvents">clear events</button>
     <NewEvent />
     <Event v-for="event in events" :key="event.id" v-bind:id="event.id" v-bind:title="event.title" v-bind:due="event.due" />
   </div>
@@ -8,6 +9,7 @@
 <script>
 import Event from './components/Event.vue'
 import NewEvent from './components/NewEvent.vue'
+const _ = require('lodash');
 const storage = require('electron-json-storage');
 
 export default {
@@ -25,13 +27,16 @@ export default {
     this.getEvents()
   },
   methods: {
-    async getEvents() {
-      const events = await storage.get('events', function(error, data) {
+    getEvents() {
+      const instance = this;
+      storage.get('events', function(error, data) {
         if (error) throw error;
-        alert(data);
-        return data;
+        instance.events = _.toArray(data);
       });
-      this.events = events;
+    },
+    clearEvents() {
+      storage.remove('events');
+      this.events = [];
     }
   }
 }

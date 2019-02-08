@@ -7,6 +7,7 @@
 </template>
 
 <script>
+const _ = require('lodash');
 const storage = require('electron-json-storage');
 
 export default {
@@ -19,18 +20,27 @@ export default {
   },
   methods: {
     createEvent: function() {
+      const instance = this;
       storage.get('events', function(error, data) {
         if (error) throw error;
-        let events = data;
         const newEvent = {
-          id: 6,
-          title: this.title,
-          due: this.due
+          id: Number(_.uniqueId()),
+          title: instance.title,
+          due: instance.due
+        };
+        let events = []
+        if (_.isEmpty(data)) {
+          events[0] = newEvent;
+        } else {
+          events = _.toArray(data);
+          events.push(newEvent);
         }
-        events.push(newEvent);
-        alert(JSON.stringify(events));
         storage.set('events', events);
+        instance.refreshEvents();
       });
+    },
+    refreshEvents() {
+      this.$parent.getEvents();
     }
   }
 }
