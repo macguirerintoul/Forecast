@@ -12,6 +12,8 @@
     "postuninstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "electron-json-storage": "^4.1.6",
+    "moment": "^2.24.0",
     "vue": "^2.5.22"
   },
   "devDependencies": {

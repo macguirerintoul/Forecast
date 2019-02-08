@@ -1,6 +1,8 @@
 <template>
   <div class="event">
+    <h1>{{ id }}</h1>
     <h1>{{ title }}</h1>
+    <h1>{{ due }}</h1>
   </div>
 </template>
 
@@ -8,7 +10,9 @@
 export default {
   name: 'Event',
   props: {
-    title: String
+    id: Number,
+    title: String,
+    due: String
   }
 }
 </script>
