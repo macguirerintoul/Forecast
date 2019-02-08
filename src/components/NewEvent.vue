@@ -8,6 +8,7 @@
 
 <script>
 const _ = require('lodash');
+const uuidv4 = require('uuid/v4');
 const storage = require('electron-json-storage');
 
 export default {
@@ -24,7 +25,7 @@ export default {
       storage.get('events', function(error, data) {
         if (error) throw error;
         const newEvent = {
-          id: Number(_.uniqueId()),
+          id: uuidv4(),
           title: instance.title,
           due: instance.due
         };
