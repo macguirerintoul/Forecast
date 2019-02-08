@@ -21,14 +21,18 @@ export default {
       events: []
     }
   },
-  mounted() {
-    storage.get('events', function(error, data) {
-      if (error) throw error;
-      alert("events got");
-      alert(data)
-      alert(data[0].title);
-      this.events = data;
-    });
+  created() {
+    this.getEvents()
+  },
+  methods: {
+    async getEvents() {
+      const events = await storage.get('events', function(error, data) {
+        if (error) throw error;
+        alert(data);
+        return data;
+      });
+      this.events = events;
+    }
   }
 }
 </script>
