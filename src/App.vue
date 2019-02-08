@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Event v-for="event in events" v-bind:title="event.title" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Event from './components/Event.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Event
+  },
+  data() {
+    return {
+      events: [
+        {
+          title: "event 1"
+        },
+        {title: "event 2"},
+        {title: "event 3"},
+      ]
+    }
   }
 }
 </script>
