@@ -8,8 +8,9 @@
 
 <script>
 const _ = require('lodash');
-const uuidv4 = require('uuid/v4');
 const storage = require('electron-json-storage');
+const uuidv4 = require('uuid/v4');
+const moment = require('moment');
 
 export default {
   name: 'NewEvent',
@@ -27,7 +28,7 @@ export default {
         const newEvent = {
           id: uuidv4(),
           title: instance.title,
-          due: instance.due
+          due: moment(instance.due)
         };
         let events = []
         if (_.isEmpty(data)) {

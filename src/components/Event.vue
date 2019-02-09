@@ -1,17 +1,24 @@
 <template>
   <div class="event">
     <h2>{{ title }}</h2>
-    <span class="due">{{ due }}</span>
+    <span class="due">{{ momentDue }}</span>
   </div>
 </template>
 
 <script>
+const moment = require('moment');
+
 export default {
   name: 'Event',
   props: {
-    id: Number,
+    id: String,
     title: String,
     due: String
+  },
+  computed: {
+    momentDue: function () {
+      return moment(this.due).fromNow(moment().isBefore(this.due));
+    }
   }
 }
 </script>
