@@ -49,6 +49,8 @@ export default {
   html, body {
     margin: 0;
     min-height: 100%;
+    background-color: #0000ff;
+    box-sizing: border-box;
   }
   #title-bar {
     display: flex;
@@ -69,10 +71,11 @@ export default {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #000;
     color: #fffff7;
     height: 100%;
+    padding-top: 2em;
     #events-container {
+      background-color: #000;
       @for $i from 1 through 20 {
         & div:nth-child(#{$i}) {
           background-color: rgba(#0000ff, 1 - ($i * 0.05));

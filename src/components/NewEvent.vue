@@ -1,9 +1,9 @@
 <template>
-<div class="new-event">
-  <input type="text" placeholder="Title" v-model="title">
-  <input type="date" placeholder="Date" v-model="due">
-  <button type="submit" value="submit" v-on:click="createEvent">Create</button>
-</div>
+  <div id="new-event">
+    <input type="text" placeholder="New Event" v-model="title">
+    <input type="date" placeholder="Date" v-model="due">
+    <button type="submit" value="submit" v-on:click="createEvent">Create</button>
+  </div>
 </template>
 
 <script>
@@ -39,6 +39,16 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
+<style scoped lang="scss">
+  #new-event {
+    display: flex;
+    padding: 1em;
+    input {
+      background: transparent;
+      border: none;
+      height: 2em;
+      font-size: 2em;
+      color: rgba(#FFF, 0.5);
+    }
+  }
 </style>
