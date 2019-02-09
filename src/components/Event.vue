@@ -25,12 +25,17 @@ export default {
 
 <style scoped lang="scss">
   .event {
+    padding: 1em;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     h2 {
-      font-size: 2em;
+      margin: 0;
+      font-size: 1.75em;
       display: inline;
+    }
+    .due {
+      opacity: 0.5;
     }
   }
 </style>
