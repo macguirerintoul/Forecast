@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <button v-on:click="clearEvents">clear events</button>
+    <button v-on:click="getEvents">get events</button>
     <NewEvent />
     <Event v-for="event in events" :key="event.id" v-bind:id="event.id" v-bind:title="event.title" v-bind:due="event.due" />
   </div>
@@ -9,8 +10,9 @@
 <script>
 import Event from './components/Event.vue'
 import NewEvent from './components/NewEvent.vue'
-const _ = require('lodash');
-const storage = require('electron-json-storage');
+
+var Datastore = require('nedb');
+var db = new Datastore({ filename: 'untili.db', autoload: true });
 
 export default {
   name: 'app',
@@ -28,15 +30,16 @@ export default {
   },
   methods: {
     getEvents() {
-      const instance = this;
-      storage.get('events', function(error, data) {
-        if (error) throw error;
-        instance.events = _.toArray(data);
+      db.loadDatabase();
+      db.find({}).sort({ due: 1 }).exec((err, docs) => {
+        console.log(docs)
+        this.events = docs;
       });
     },
     clearEvents() {
-      storage.remove('events');
-      this.events = [];
+      db.remove({}, { multi: true }, () => {
+        this.events = []
+      });
     }
   }
 }

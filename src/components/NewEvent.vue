@@ -1,16 +1,18 @@
 <template>
-  <div class="new-event">
-    <input type="text" placeholder="Title" v-model="title">
-    <input type="date" placeholder="Date" v-model="due">
-    <button type="submit" value="submit" v-on:click="createEvent">Create</button>
-  </div>
+<div class="new-event">
+  <input type="text" placeholder="Title" v-model="title">
+  <input type="date" placeholder="Date" v-model="due">
+  <button type="submit" value="submit" v-on:click="createEvent">Create</button>
+</div>
 </template>
 
 <script>
-const _ = require('lodash');
-const storage = require('electron-json-storage');
-const uuidv4 = require('uuid/v4');
 const moment = require('moment');
+var Datastore = require('nedb');
+var db = new Datastore({
+  filename: 'untili.db',
+  autoload: true
+});
 
 export default {
   name: 'NewEvent',
@@ -22,23 +24,12 @@ export default {
   },
   methods: {
     createEvent: function() {
-      const instance = this;
-      storage.get('events', function(error, data) {
-        if (error) throw error;
-        const newEvent = {
-          id: uuidv4(),
-          title: instance.title,
-          due: moment(instance.due)
-        };
-        let events = []
-        if (_.isEmpty(data)) {
-          events[0] = newEvent;
-        } else {
-          events = _.toArray(data);
-          events.push(newEvent);
-        }
-        storage.set('events', events);
-        instance.refreshEvents();
+      db.insert({
+        title: this.title,
+        due: moment(this.due)
+      }, (err, newDoc) => {
+        console.log(newDoc)
+        this.refreshEvents();
       });
     },
     refreshEvents() {

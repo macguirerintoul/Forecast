@@ -13,11 +13,11 @@ export default {
   props: {
     id: String,
     title: String,
-    due: String
+    due: Object
   },
   computed: {
     momentDue: function () {
-      return moment(this.due).fromNow(moment().isBefore(this.due));
+      return moment(this.due).fromNow(moment().isBefore(moment(this.due)));
     }
   }
 }
