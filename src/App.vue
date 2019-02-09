@@ -2,13 +2,24 @@
   <div id="app">
     <div id="title-bar"><span>Untili</span></div>
     <NewEvent />
-    <div id="events-container">
-      <Event v-for="event in events" :key="event.id" v-bind:id="event.id" v-bind:title="event.title" v-bind:due="event.due" />
+    <swipe-list id="events-container" :items="events" transition-key="id" @swipeout:click="itemClick">
+      <template slot-scope="{ item, index, revealLeft, revealRight, close }">
+        <Event :key="item.id" v-bind:id="item.id" v-bind:title="item.title" v-bind:due="item.due" />
+      </template>
+      <template slot="right" slot-scope="{ item, close }">
+        <div class="swipeout-action">
+          <img src="./assets/check.svg" alt="complete">
+        </div>
+    </template>
+    <div slot="empty">
+      <h2>Nothing on the Forecast.</h2>
     </div>
+    </swipe-list>
   </div>
 </template>
 
 <script>
+import { SwipeList, SwipeOut } from 'vue-swipe-actions';
 import Event from './components/Event.vue'
 import NewEvent from './components/NewEvent.vue'
 
@@ -19,7 +30,9 @@ export default {
   name: 'app',
   components: {
     Event,
-    NewEvent
+    NewEvent,
+    SwipeOut,
+    SwipeList
   },
   data() {
     return {
@@ -40,7 +53,13 @@ export default {
       db.remove({}, { multi: true }, () => {
         this.events = []
       });
-    }
+    },
+    itemClick(e) {
+      console.log(e['item']['_id'])
+      db.remove({ _id: e['item']['_id'] }, {}, () => {
+        this.getEvents();
+      });
+    },
   }
 }
 </script>
@@ -77,10 +96,64 @@ export default {
     #events-container {
       background-color: #000;
       @for $i from 1 through 20 {
-        & div:nth-child(#{$i}) {
+        &>div:nth-child(#{$i}) {
           background-color: rgba(#0000ff, 1 - ($i * 0.05));
         }
       }
     }
+  }
+
+  // vue-swipe-actions styles
+  .swipeout {
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    display: flex;
+    .swipeout-action {
+      width: 4em;
+      background-color: #0000004f;
+      text-align: center;
+      img {
+        opacity: 0.5;
+        max-height: 50%;
+        margin-top: 27%;
+      }
+    }
+    &.swipeout--disabled {
+      user-select: auto;
+    }
+    .swipeout-left,
+    .swipeout-right {
+      position: absolute;
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      z-index: 1;
+    }
+  }
+  .swipeout.swipeout--transitioning .swipeout-action,
+  .swipeout.swipeout--transitioning .swipeout-content {
+    transition: transform 0.3s;
+  }
+  .swipeout .swipeout-content {
+    width: 100%;
+  }
+  .swipeout .swipeout-action,
+  .swipeout .swipeout-content {
+    will-change: transform;
+
+  }
+  .swipeout .swipeout-left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  .swipeout .swipeout-right {
+    display: flex;
+    right: 0;
+    transform: translateX(100%);
+  }
+  .swipeout-list-item {
+    outline: none;
   }
 </style>
