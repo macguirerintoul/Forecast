@@ -27,8 +27,7 @@ export default {
       db.insert({
         title: this.title,
         due: moment(this.due)
-      }, (err, newDoc) => {
-        console.log(newDoc)
+      }, () => {
         this.refreshEvents();
       });
     },

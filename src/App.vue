@@ -32,7 +32,6 @@ export default {
     getEvents() {
       db.loadDatabase();
       db.find({}).sort({ due: 1 }).exec((err, docs) => {
-        console.log(docs)
         this.events = docs;
       });
     },
@@ -51,11 +50,11 @@ html, body {
   height: 100%;
 }
 #app {
-  padding: 5vw;
+  padding: 1em;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #100a27;
+  background-color: #0F111A;
   color: #ffffff;
   height: 100%;
 }
