@@ -42,12 +42,35 @@ export default {
 <style scoped lang="scss">
   #new-event {
     display: flex;
+    align-items: baseline;
     padding: 1em;
+    button {
+      background: none;
+      border-radius: 1em;
+      color: rgba(255, 255, 255, 0.5);
+      border-width: 2px;
+      border-color: rgba(255, 255, 255, 0.5);
+      font-size: 1em;
+      font-weight: 700;
+      padding: 0.5em 1em;
+      &:focus {
+        outline: none;
+        background: #FFF;
+        color: #0000FF;
+      }
+    }
     input {
       background: transparent;
       border: none;
       height: 2em;
-      font-size: 2em;
+      font-size: 1.75em;
+      &:focus {
+        outline: none;
+      }
+    }
+    input,
+    input::placeholder {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: rgba(#FFF, 0.5);
     }
   }
