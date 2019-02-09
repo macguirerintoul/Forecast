@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <button v-on:click="clearEvents">clear events</button>
-    <button v-on:click="getEvents">get events</button>
     <NewEvent />
     <Event v-for="event in events" :key="event.id" v-bind:id="event.id" v-bind:title="event.title" v-bind:due="event.due" />
   </div>

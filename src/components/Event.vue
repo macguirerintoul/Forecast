@@ -23,14 +23,14 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.event {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-}
-  h1 {
-    display: inline;
+<style scoped lang="scss">
+  .event {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    h2 {
+      font-size: 2em;
+      display: inline;
+    }
   }
 </style>
