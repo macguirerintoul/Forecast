@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="title-bar"><span>Untili</span></div>
+    <div id="title-bar"><span>Forecast</span></div>
     <NewEvent />
     <swipe-list id="events-container" :items="events" transition-key="id" @swipeout:click="itemClick">
       <template slot-scope="{ item, index, revealLeft, revealRight, close }">
@@ -11,7 +11,7 @@
           <img src="./assets/check.svg" alt="complete">
         </div>
     </template>
-    <div slot="empty">
+    <div id="empty" slot="empty">
       <h2>Nothing on the Forecast.</h2>
     </div>
     </swipe-list>
@@ -65,11 +65,16 @@ export default {
 </script>
 
 <style lang="scss">
+  $cream: #fffff7;
+
   html, body {
     margin: 0;
     min-height: 100%;
-    background-color: #0000ff;
     box-sizing: border-box;
+  }
+  html,
+  #title-bar {
+    background-color: black;
   }
   #title-bar {
     display: flex;
@@ -90,7 +95,7 @@ export default {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #fffff7;
+    color: $cream;
     height: 100%;
     padding-top: 2em;
     #events-container {
@@ -98,6 +103,17 @@ export default {
       @for $i from 1 through 20 {
         &>div:nth-child(#{$i}) {
           background-color: rgba(#0000ff, 1 - ($i * 0.05));
+        }
+        &>#empty {
+          // styles for the 'empty' div
+          background-color: black;
+          text-align: center;
+          font-weight: 200;
+          color: $cream;
+          h2 {
+            font-weight: 300;
+            color: $cream;
+          }
         }
       }
     }
@@ -131,6 +147,7 @@ export default {
       display: flex;
       z-index: 1;
     }
+
   }
   .swipeout.swipeout--transitioning .swipeout-action,
   .swipeout.swipeout--transitioning .swipeout-content {
