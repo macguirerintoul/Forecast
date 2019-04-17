@@ -1,7 +1,9 @@
 <template>
   <div id="new-event">
-    <input type="text" placeholder="New Event" v-model="title">
-    <input type="date" placeholder="Date" v-model="due" required>
+    <div>
+      <input type="text" placeholder="New Event" v-model="title">
+      <input type="date" placeholder="Date" v-model="due" required>
+    </div>
     <button type="submit" value="submit" @click="createEvent">Create</button>
   </div>
 </template>
@@ -29,9 +31,9 @@ export default {
         due: moment(this.due)
       }, (error, document) => {
         console.log("Event created - ", this.title, document._id)
+        this.$parent.addEvent(document._id, this.title, moment(this.due));
         this.title = '';
         this.due = null;
-        this.$parent.getEvents();
       });
     }
   }
@@ -44,7 +46,8 @@ export default {
 
   #new-event {
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    justify-content: space-between;
     padding: 1em;
     button {
       background: none;
@@ -64,8 +67,8 @@ export default {
     input {
       background: transparent;
       border: none;
-      height: 2em;
-      font-size: 1.75em;
+      height: 1.2em;
+      font-size: 1.2em;
       &,
       &::placeholder {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

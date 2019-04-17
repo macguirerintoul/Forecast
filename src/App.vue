@@ -2,17 +2,18 @@
   <div id="app">
     <div id="title-bar"><span>Forecast</span></div>
     <NewEvent />
-    <swipe-list id="events-container" :items="events" transition-key="id">
+    <swipe-list id="events-container" :items="events" transition-key="_id">
       <template v-slot="{ item, index, revealLeft, revealRight, close }">
-        <Event :key="item.id" v-bind:id="item.id" v-bind:title="item.title" v-bind:due="item.due" />
+        <Event :key="item._id" v-bind:id="item._id" v-bind:title="item.title" v-bind:due="item.due" />
       </template>
       <template v-slot:right="{ item }">
-        <div class="swipeout-action" @click="removeEvent(item)">
+        <div class="swipeout-action" @click="removeEvent(item._id)">
           <img src="./assets/check.svg" alt="complete">
         </div>
     </template>
     <div id="empty" slot="empty">
-      <h2>Nothing on the Forecast.</h2>
+      <h2>Nothing on your Forecast.</h2>
+      <h4>Add something? Scroll up.</h4>
     </div>
     </swipe-list>
   </div>
@@ -40,13 +41,13 @@ export default {
     }
   },
   created() {
-    this.getEvents()
+    this.getEvents();
+    window.scrollTo(0, document.body.scrollHeight);
   },
   methods: {
     getEvents() {
       console.log("getEvents - App");
       db.loadDatabase();
-      this.events = [];
       db.find({}).sort({ due: 1 }).exec((err, docs) => {
         this.events = docs;
       });
@@ -57,12 +58,23 @@ export default {
         this.events = []
       });
     },
-    removeEvent(item) {
-      console.log(item._id);
-      db.remove({ _id: item._id }, (error, removed) => {
-        console.log(removed);
+    addEvent(id, title, due) {
+      this.events.push({
+        '_id': id,
+        'title': title,
+        'due': due
       });
-      this.getEvents();
+      console.log("Event added")
+      this.events.sort((a, b) => a.due.diff(b.due));
+      console.log("Events sorted")
+    },
+    removeEvent(id) {
+      console.log("Removing event ", id);
+      let index = this.events.findIndex(object => object._id == id);
+      console.log(index);
+      db.remove({ _id: id }, (error, removed) => {
+        this.events.splice(index, 1);
+      });
     },
   }
 }
@@ -70,14 +82,12 @@ export default {
 
 <style lang="scss">
   $cream: #fffff7;
+  $text-grey: #aaa;
 
   html, body {
     margin: 0;
     min-height: 100%;
     box-sizing: border-box;
-  }
-  html,
-  #title-bar {
     background-color: black;
   }
   #title-bar {
@@ -86,6 +96,7 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 10;
     -webkit-app-region: drag;
     background-color: transparent;
     height: 2em;
@@ -100,7 +111,7 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: $cream;
-    height: 100%;
+    height: 114vh;
     padding-top: 2em;
     #events-container {
       background-color: #000;
@@ -109,14 +120,16 @@ export default {
           background-color: rgba(#0000ff, 1 - ($i * 0.05));
         }
         &>#empty {
-          // styles for the 'empty' div
+          margin-top: 4em;
           background-color: black;
           text-align: center;
           font-weight: 200;
-          color: $cream;
           h2 {
             font-weight: 300;
             color: $cream;
+          }
+          h4 {
+            color: $text-grey;
           }
         }
       }
