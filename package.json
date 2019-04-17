@@ -1,5 +1,5 @@
 {
-  "name": "untili",
+  "name": "forecast",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -37,6 +37,7 @@
       "autoprefixer": {}
     }
   },
+  "productName": "Forecast",
   "browserslist": [
     "> 1%",
     "last 2 versions",

@@ -2,15 +2,15 @@
   <div id="new-event">
     <input type="text" placeholder="New Event" v-model="title">
     <input type="date" placeholder="Date" v-model="due" required>
-    <button type="submit" value="submit" v-on:click="createEvent">Create</button>
+    <button type="submit" value="submit" @click="createEvent">Create</button>
   </div>
 </template>
 
 <script>
 const moment = require('moment');
-var Datastore = require('nedb');
-var db = new Datastore({
-  filename: 'untili.db',
+const Datastore = require('nedb');
+const db = new Datastore({
+  filename: 'forecast.db',
   autoload: true
 });
 
@@ -27,14 +27,12 @@ export default {
       db.insert({
         title: this.title,
         due: moment(this.due)
-      }, () => {
+      }, (error, document) => {
+        console.log("Event created - ", this.title, document._id)
         this.title = '';
         this.due = null;
-        this.refreshEvents();
+        this.$parent.getEvents();
       });
-    },
-    refreshEvents() {
-      this.$parent.getEvents();
     }
   }
 }

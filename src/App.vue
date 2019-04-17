@@ -2,12 +2,12 @@
   <div id="app">
     <div id="title-bar"><span>Forecast</span></div>
     <NewEvent />
-    <swipe-list id="events-container" :items="events" transition-key="id" @swipeout:click="itemClick">
-      <template slot-scope="{ item, index, revealLeft, revealRight, close }">
+    <swipe-list id="events-container" :items="events" transition-key="id">
+      <template v-slot="{ item, index, revealLeft, revealRight, close }">
         <Event :key="item.id" v-bind:id="item.id" v-bind:title="item.title" v-bind:due="item.due" />
       </template>
-      <template slot="right" slot-scope="{ item, close }">
-        <div class="swipeout-action">
+      <template v-slot:right="{ item }">
+        <div class="swipeout-action" @click="removeEvent(item)">
           <img src="./assets/check.svg" alt="complete">
         </div>
     </template>
@@ -23,8 +23,8 @@ import { SwipeList, SwipeOut } from 'vue-swipe-actions';
 import Event from './components/Event.vue'
 import NewEvent from './components/NewEvent.vue'
 
-var Datastore = require('nedb');
-var db = new Datastore({ filename: 'untili.db', autoload: true });
+const Datastore = require('nedb');
+const db = new Datastore({ filename: 'forecast.db', autoload: true });
 
 export default {
   name: 'app',
@@ -44,21 +44,25 @@ export default {
   },
   methods: {
     getEvents() {
+      console.log("getEvents - App");
       db.loadDatabase();
+      this.events = [];
       db.find({}).sort({ due: 1 }).exec((err, docs) => {
         this.events = docs;
       });
     },
     clearEvents() {
+      console.log("clearEvents - App");
       db.remove({}, { multi: true }, () => {
         this.events = []
       });
     },
-    itemClick(e) {
-      console.log(e['item']['_id'])
-      db.remove({ _id: e['item']['_id'] }, {}, () => {
-        this.getEvents();
+    removeEvent(item) {
+      console.log(item._id);
+      db.remove({ _id: item._id }, (error, removed) => {
+        console.log(removed);
       });
+      this.getEvents();
     },
   }
 }
