@@ -26,15 +26,10 @@ export default {
   },
   methods: {
     createEvent: function() {
-      db.insert({
-        title: this.title,
-        due: moment(this.due)
-      }, (error, document) => {
-        console.log("Event created - ", this.title, document._id)
-        this.$parent.addEvent(document._id, this.title, moment(this.due));
-        this.title = '';
-        this.due = null;
-      });
+      console.log("Creating event - ", this.title)
+      this.$parent.addEvent(this.title, moment(this.due));
+      this.title = '';
+      this.due = null;
     }
   }
 }

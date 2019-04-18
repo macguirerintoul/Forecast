@@ -51,6 +51,9 @@ export default {
       db.find({}).sort({ due: 1 }).exec((err, docs) => {
         this.events = docs;
       });
+      this.events.forEach(object => {
+        object.due = moment(object.due);
+      })
     },
     clearEvents() {
       console.log("clearEvents - App");
@@ -58,15 +61,27 @@ export default {
         this.events = []
       });
     },
-    addEvent(id, title, due) {
-      this.events.push({
-        '_id': id,
-        'title': title,
-        'due': due
+    addEvent(title, due) {
+      db.insert({
+        title: title,
+        due: due
+      }, (error, document) => {
+        console.log(document)
+        this.events.push({
+          '_id': document._id,
+          'title': document.title,
+          'due': document.due
+        });
+        console.log("Event added")
+        console.log(this.events)
+        this.events.sort(function(a, b) {
+          console.log(a);
+          console.log(b);
+          console.log(a.due.diff(b.due));
+          return a.due.diff(b.due);
+        });
+        console.log("Events sorted")
       });
-      console.log("Event added")
-      this.events.sort((a, b) => a.due.diff(b.due));
-      console.log("Events sorted")
     },
     removeEvent(id) {
       console.log("Removing event ", id);
@@ -115,41 +130,51 @@ export default {
     padding-top: 2em;
     #events-container {
       background-color: #000;
-      @for $i from 1 through 20 {
-        &>div:nth-child(#{$i}) {
-          background-color: rgba(#0000ff, 1 - ($i * 0.05));
+      // CSS for Clear-style list items
+      // @for $i from 1 through 20 {
+      //   &>div:nth-child(#{$i}) {
+      //     background-color: rgba(#0000ff, 1 - ($i * 0.05));
+      //   }
+      // }
+      &>#empty {
+        margin-top: 4em;
+        background-color: black;
+        text-align: center;
+        font-weight: 200;
+        h2 {
+          font-weight: 300;
+          color: $cream;
         }
-        &>#empty {
-          margin-top: 4em;
-          background-color: black;
-          text-align: center;
-          font-weight: 200;
-          h2 {
-            font-weight: 300;
-            color: $cream;
-          }
-          h4 {
-            color: $text-grey;
-          }
+        h4 {
+          color: $text-grey;
         }
       }
     }
   }
 
-  // vue-swipe-actions styles
+  // Styles from vue-swipe-actions
+  // .swipeout is the class applied to each list item
+  .swipeout-list {
+    padding-top: 2em;
+  }
   .swipeout {
     position: relative;
     overflow: hidden;
     user-select: none;
     display: flex;
+    border-bottom: 1px solid #333;
     .swipeout-action {
       width: 4em;
       background-color: #0000004f;
       text-align: center;
       img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        margin: auto;
         opacity: 0.5;
-        max-height: 50%;
-        margin-top: 27%;
       }
     }
     &.swipeout--disabled {

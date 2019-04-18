@@ -1,7 +1,10 @@
 <template>
   <div class="event">
     <h2>{{ title }}</h2>
-    <span class="due">{{ momentDue }}</span>
+    <div class="due">
+      <span class="amount">{{ amount }}</span>
+      <span class="unit">{{ unit }}</span>
+    </div>
   </div>
 </template>
 
@@ -16,8 +19,13 @@ export default {
     due: Object
   },
   computed: {
-    momentDue: function () {
-      return moment(this.due).fromNow(moment().isBefore(moment(this.due)));
+    amount: function () {
+      let str = moment(this.due).fromNow(moment().isBefore(moment(this.due)));
+      return str.substring(0, str.indexOf(" "));
+    },
+    unit: function() {
+      let str = moment(this.due).fromNow(moment().isBefore(moment(this.due)));
+      return str.substring(str.indexOf(" "));
     }
   }
 }
@@ -27,7 +35,7 @@ export default {
   .event {
     padding: 1em;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     h2 {
       margin: 0;
@@ -35,7 +43,15 @@ export default {
       display: inline;
     }
     .due {
+      display: flex;
+      flex-direction: column;
       opacity: 0.5;
+      text-align: center;
+      min-width: 4em;
+      .amount {
+        font-size: 2em;
+        font-weight: 700;
+      }
     }
   }
 </style>
