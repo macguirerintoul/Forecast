@@ -12,10 +12,8 @@
     "postuninstall": "electron-builder install-app-deps"
   },
   "dependencies": {
-    "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "nedb": "^1.8.0",
-    "uuid": "^3.3.2",
     "vue": "^2.5.22",
     "vue-swipe-actions": "^1.0.10"
   },
