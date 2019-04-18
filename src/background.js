@@ -59,6 +59,21 @@ app.on('ready', async () => {
     await installVueDevtools()
   }
   createWindow()
+
+  const menuTemplate = [
+    {
+      label: 'Edit',
+      submenu: [
+        {
+          label: 'Clear All Events'
+        },
+      ]
+    }
+  ]
+
+  const menu = Menu.buildFromTemplate(menuTemplate)
+  Menu.setApplicationMenu(menu)
+
 })
 
 // Exit cleanly on request from parent process in development mode.

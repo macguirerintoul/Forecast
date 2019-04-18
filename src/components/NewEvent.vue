@@ -1,16 +1,18 @@
 <template>
   <div id="new-event">
-    <input type="text" placeholder="New Event" v-model="title">
-    <input type="date" placeholder="Date" v-model="due">
-    <button type="submit" value="submit" v-on:click="createEvent">Create</button>
+    <div>
+      <input type="text" placeholder="New Event" v-model="title">
+      <input type="date" placeholder="Date" v-model="due" required>
+    </div>
+    <button type="submit" value="submit" @click="createEvent">Create</button>
   </div>
 </template>
 
 <script>
 const moment = require('moment');
-var Datastore = require('nedb');
-var db = new Datastore({
-  filename: 'untili.db',
+const Datastore = require('nedb');
+const db = new Datastore({
+  filename: 'forecast.db',
   autoload: true
 });
 
@@ -24,15 +26,10 @@ export default {
   },
   methods: {
     createEvent: function() {
-      db.insert({
-        title: this.title,
-        due: moment(this.due)
-      }, () => {
-        this.refreshEvents();
-      });
-    },
-    refreshEvents() {
-      this.$parent.getEvents();
+      console.log("Creating event - ", this.title)
+      this.$parent.addEvent(this.title, moment(this.due));
+      this.title = '';
+      this.due = null;
     }
   }
 }
@@ -40,9 +37,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  $cream: #fffff7;
+
   #new-event {
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    justify-content: space-between;
     padding: 1em;
     button {
       background: none;
@@ -62,16 +62,25 @@ export default {
     input {
       background: transparent;
       border: none;
-      height: 2em;
-      font-size: 1.75em;
+      height: 1.2em;
+      font-size: 1.2em;
+      &,
+      &::placeholder {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      &[type="text"] {
+        color: $cream;
+      }
+      &[type="date"] {
+        color: rgba(#FFF, 0.5);
+      }
+      &[type="date"]:focus,
+      &[type="date"]:valid {
+        color: $cream;
+      }
       &:focus {
         outline: none;
       }
-    }
-    input,
-    input::placeholder {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: rgba(#FFF, 0.5);
     }
   }
 </style>
