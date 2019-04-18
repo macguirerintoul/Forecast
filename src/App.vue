@@ -26,6 +26,7 @@ import NewEvent from './components/NewEvent.vue'
 
 const Datastore = require('nedb');
 const db = new Datastore({ filename: 'forecast.db', autoload: true });
+const moment = require('moment');
 
 export default {
   name: 'app',
@@ -50,10 +51,12 @@ export default {
       db.loadDatabase();
       db.find({}).sort({ due: 1 }).exec((err, docs) => {
         this.events = docs;
+        this.events.forEach(object => {
+          console.log(object.due);
+          object.due = moment(object.due);
+          console.log(object.due);
+        });
       });
-      this.events.forEach(object => {
-        object.due = moment(object.due);
-      })
     },
     clearEvents() {
       console.log("clearEvents - App");
@@ -73,10 +76,7 @@ export default {
           'due': document.due
         });
         console.log("Event added")
-        console.log(this.events)
         this.events.sort(function(a, b) {
-          console.log(a);
-          console.log(b);
           console.log(a.due.diff(b.due));
           return a.due.diff(b.due);
         });
