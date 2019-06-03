@@ -52,9 +52,9 @@ export default {
       db.find({}).sort({ due: 1 }).exec((err, docs) => {
         this.events = docs;
         this.events.forEach(object => {
-          console.log(object.due);
+          // console.log(object.due);
           object.due = moment(object.due);
-          console.log(object.due);
+          // console.log(object.due);
         });
       });
     },

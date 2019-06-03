@@ -20,8 +20,9 @@ export default {
   },
   computed: {
     amount: function () {
-      let str = moment(this.due).fromNow(moment().isBefore(moment(this.due)));
-      return str.substring(0, str.indexOf(" "));
+      let fromNow = moment(this.due).fromNow(moment().isBefore(moment(this.due)));
+      let aReplaced = fromNow.charAt(0) == 'a' ? fromNow.replace('a', '1') : fromNow;
+      return aReplaced.substring(0, aReplaced.indexOf(" "));
     },
     unit: function() {
       let str = moment(this.due).fromNow(moment().isBefore(moment(this.due)));
@@ -46,7 +47,7 @@ export default {
       display: flex;
       flex-direction: column;
       opacity: 0.5;
-      text-align: center;
+      text-align: right;
       min-width: 4em;
       .amount {
         font-size: 2em;
