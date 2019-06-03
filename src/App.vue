@@ -2,10 +2,20 @@
   <div id="app">
     <div id="title-bar"><span>Forecast</span></div>
     <NewEvent />
-    <swipe-list id="events-container" :items="events" transition-key="_id">
+    <swipe-list ref="list" id="events-container" :items="events" transition-key="_id">
       <template v-slot="{ item, index, revealLeft, revealRight, close }">
-        <Event :key="item._id" v-bind:id="item._id" v-bind:title="item.title" v-bind:due="item.due" />
+        <Event @eventClicked="eventClicked(index)" :key="item._id" v-bind:index="index" v-bind:id="item._id" v-bind:title="item.title" v-bind:due="item.due" />
       </template>
+      <template v-slot:left="{ item, close }">
+		<div class="swipeout-action red" title="remove" @click="remove(item)">
+			<!-- place icon here or what ever you want -->
+			<i class="fa fa-trash"></i>
+		</div>
+		<div class="swipeout-action purple" @click="close">
+			<!-- place icon here or what ever you want -->
+			<i class="fa fa-close"></i>
+		</div>
+	</template>
       <template v-slot:right="{ item }">
         <div class="swipeout-action" @click="removeEvent(item._id)">
           <img src="./assets/check.svg" alt="complete">
@@ -57,6 +67,10 @@ export default {
           // console.log(object.due);
         });
       });
+    },
+    eventClicked(index) {
+      console.log(this.$refs);
+      this.$refs.list.revealRight(0);
     },
     clearEvents() {
       console.log("clearEvents - App");
@@ -155,7 +169,7 @@ export default {
   // Styles from vue-swipe-actions
   // .swipeout is the class applied to each list item
   .swipeout-list {
-    padding-top: 2em;
+    padding-top: 1em;
   }
   .swipeout {
     position: relative;

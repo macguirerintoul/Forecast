@@ -1,5 +1,5 @@
 <template>
-  <div class="event">
+  <div @click="$emit('eventClicked')" class="event">
     <h2>{{ title }}</h2>
     <div class="due">
       <span class="amount">{{ amount }}</span>
@@ -15,6 +15,7 @@ export default {
   name: 'Event',
   props: {
     id: String,
+    index: Number,
     title: String,
     due: Object
   },
