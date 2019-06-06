@@ -2,7 +2,7 @@
   <div id="new-event">
     <div>
       <input type="text" placeholder="New Event" v-model="title">
-      <input type="date" placeholder="Date" v-model="due" required>
+      <input v-on:focus="dateFocused()" type="date" v-model="due" required>
     </div>
     <button type="submit" value="submit" @click="createEvent">Create</button>
   </div>
@@ -25,11 +25,14 @@ export default {
     }
   },
   methods: {
+    dateFocused() {
+      this.due = (this.due == '') ? moment().format("YYYY-MM-DD").toString() : this.due;
+    },
     createEvent: function() {
       console.log("Creating event - ", this.title)
       this.$parent.addEvent(this.title, moment(this.due));
       this.title = '';
-      this.due = null;
+      this.due = '';
     }
   }
 }
