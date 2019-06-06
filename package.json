@@ -15,7 +15,7 @@
     "moment": "^2.24.0",
     "nedb": "^1.8.0",
     "vue": "^2.5.22",
-    "vue-swipe-actions": "^1.0.10"
+    "vue-swipe-actions": "2.0.0-beta.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
@@ -27,19 +27,19 @@
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
-    "vue-cli-plugin-electron-builder": "^1.0.0-rc.11",
-    "vue-template-compiler": "^2.5.21"
+    "vue-cli-plugin-electron-builder": "^1.3.4",
+    "vue-template-compiler": "2.6.4"
   },
   "postcss": {
     "plugins": {
       "autoprefixer": {}
     }
   },
-  "productName": "Forecast",
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
   ],
-  "main": "background.js"
+  "main": "background.js",
+  "productName": "Forecast"
 }
