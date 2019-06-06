@@ -1,5 +1,5 @@
 <template>
-  <div @click="$emit('eventClicked')" class="event">
+  <div @contextmenu="$emit('rightClick')" @click="$emit('eventClicked')" class="event">
     <h2>{{ title }}</h2>
     <div class="due">
       <span class="amount">{{ amount }}</span>

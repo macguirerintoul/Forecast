@@ -4,7 +4,7 @@
     <NewEvent></NewEvent>
     <swipe-list ref="list" id="events-container" :items="events" transition-key="_id">
       <template v-slot="{ item, index, revealLeft, revealRight, close }">
-        <Event @eventClicked="eventClicked(index)" :key="item._id" v-bind:index="index" v-bind:id="item._id" v-bind:title="item.title" v-bind:due="item.due" />
+        <Event @rightClick="eventRightClick(index)" @eventClicked="eventClicked(index)" :key="item._id" v-bind:index="index" v-bind:id="item._id" v-bind:title="item.title" v-bind:due="item.due" />
       </template>
       <template v-slot:right="{ item }">
         <div class="swipeout-action" @click="removeEvent(item._id)">
@@ -58,10 +58,16 @@ export default {
         });
       });
     },
+    eventRightClick(index) {
+      const list = this.$refs.list;
+      if (list.isRevealed(index) == "right") {
+        list.closeActions(index);
+      } else {
+        list.revealRight(index);
+      }
+    },
     eventClicked(index) {
       const list = this.$refs.list;
-      console.log(list.isRevealed(index))
-      // list.revealRight(index);
     },
     clearEvents() {
       console.log("clearEvents - App");
