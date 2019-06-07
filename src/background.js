@@ -1,6 +1,5 @@
 'use strict'
-
-import { app, protocol, BrowserWindow } from 'electron'
+const { app, protocol, BrowserWindow, Menu } = require("electron");
 import {
   createProtocol,
   installVueDevtools
@@ -21,6 +20,180 @@ function createWindow () {
     titleBarStyle: 'hiddenInset',
     minWidth: 330
   });
+
+  // Set up menu
+  const template = [
+    /*
+
+
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Import Image',
+          click: () => { win.webContents.send('import', 'Import Image') }
+        },
+        { type: 'separator' },
+        {
+          label: 'Export Preset',
+          click: () => { win.webContents.send('exportPreset', 'Export Preset') }
+        },
+        { type: 'separator' },
+        // {
+        //   label: 'Export Effects Rack',
+        //   click: () => { win.webContents.send('exportEffects', 'Export Effects') }
+        // },
+        {
+          label: 'Export Image',
+          click: () => { win.webContents.send('export', 'Export Image') }
+        }
+      ]
+    },
+    */
+    // Edit
+    {
+      label: 'Edit',
+      submenu: [
+        {
+          label: 'Undo',
+          id: 'undo',
+          accelerator: 'CmdOrCtrl+Z',
+          // role: 'undo',
+          click: () => { win.webContents.send('undo', 'Undo') }
+        },
+        {
+          label: 'Redo',
+          id: 'redo',
+          accelerator: 'Shift+CmdOrCtrl+Z',
+          // role: 'redo',
+          click: () => { win.webContents.send('redo', 'Redo') }
+        },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        // { role: 'pasteandmatchstyle' },
+        { role: 'delete' },
+        // { role: 'selectall' }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        {
+          label: 'Add Effect',
+          accelerator: 'CmdOrCtrl+Plus',
+          type: 'radio',
+          id: 'addEffect',
+          click: () => { win.webContents.send('changeView', 'addEffect') }
+        },
+        {
+          label: 'Edit Effect',
+          accelerator: 'CmdOrCtrl+E',
+          type: 'radio',
+          id: 'editEffect',
+          click: () => { win.webContents.send('changeView', 'editEffect') }
+        },
+        {
+          label: 'History',
+          accelerator: 'CmdOrCtrl+Y',
+          type: 'radio',
+          id: 'history',
+          click: () => { win.webContents.send('changeView', 'history') }
+        },
+        {
+          label: 'None',
+          accelerator: 'Escape',
+          type: 'radio',
+          checked: true,
+          id: 'none',
+          click: () => { win.webContents.send('changeView', 'none') }
+        },
+        { type: 'separator' },
+        { role: 'togglefullscreen' }
+      ]
+    },
+    {
+      role: 'window',
+      submenu: [
+        { role: 'minimize' },
+        { role: 'close' }
+      ]
+    },
+    {
+      label: 'Development',
+      visible: isDevelopment,
+      submenu: [
+        {
+          label: '🦄 4 Developer Eyes Only',
+          enabled: false
+        },
+        { type: 'separator' },
+        // { type: 'separator' },
+        // { role: 'resetzoom' },
+        // { role: 'zoomin' },
+        // { role: 'zoomout' },
+        { role: 'reload' },
+        { role: 'forcereload' },
+        { role: 'toggledevtools' },
+        { type: 'separator' },
+        {
+          label: 'View Github Repo',
+          click() { require('electron').shell.openExternal('https://github.com/stuible/Image-Snafu') }
+        }
+      ]
+    },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'View Documentation',
+          click() { require('electron').shell.openExternal('https://github.com/stuible/Image-Snafu') }
+        }
+      ]
+    }
+  ];
+
+  if (process.platform === 'darwin') {
+    template.unshift({
+      label: app.getName(),
+      submenu: [
+        { role: 'about' },
+        { type: 'separator' },
+        { role: 'services' },
+        { type: 'separator' },
+        { role: 'hide' },
+        { role: 'hideothers' },
+        { role: 'unhide' },
+        { type: 'separator' },
+        { role: 'quit' }
+      ]
+    })
+
+    // Edit menu
+    template[2].submenu.push(
+      { type: 'separator' },
+      {
+        label: 'Speech',
+        submenu: [
+          { role: 'startspeaking' },
+          { role: 'stopspeaking' }
+        ]
+      }
+    )
+
+    // Window menu
+    template[4].submenu = [
+      { role: 'close' },
+      { role: 'minimize' },
+      { role: 'zoom' },
+      { type: 'separator' },
+      { role: 'front' }
+    ]
+  }
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -61,24 +234,9 @@ app.on('activate', () => {
 app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
-    await installVueDevtools()
+    await installVueDevtools();
   }
-  createWindow()
-
-  const menuTemplate = [
-    {
-      label: 'Edit',
-      submenu: [
-        {
-          label: 'Clear All Events'
-        },
-      ]
-    }
-  ]
-
-  const menu = Menu.buildFromTemplate(menuTemplate)
-  Menu.setApplicationMenu(menu)
-
+  createWindow();
 })
 
 // Exit cleanly on request from parent process in development mode.
