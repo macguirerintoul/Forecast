@@ -12,8 +12,18 @@
         </div>
     </template>
     <div id="empty" slot="empty">
-      <h2>Nothing on your Forecast.</h2>
-      <h4>Add something? Scroll up.</h4>
+      <div id="icon">
+        <img width="96" src="./assets/icon.png" alt="Forecast icon">
+      </div>
+      <h1>Welcome to Forecast.</h1>
+      <h2>Here's how to use it.</h2>
+      <ol>
+        <li>Scroll up to add an item</li>
+        <li>Choose a title</li>
+        <li>Choose a date</li>
+        <li>Hit enter or click create</li>
+        <li>Drag items left (or right-click) to complete them</li>
+      </ol>
     </div>
     </swipe-list>
   </div>
@@ -107,6 +117,8 @@ export default {
 </script>
 
 <style lang="scss">
+  $light: #FFFFFF;
+  $text: #000000;
   $cream: #fffff7;
   $text-grey: #aaa;
 
@@ -114,7 +126,7 @@ export default {
     margin: 0;
     min-height: 100%;
     box-sizing: border-box;
-    background-color: black;
+    background-color: $light;
   }
   #title-bar {
     display: flex;
@@ -136,11 +148,11 @@ export default {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: $cream;
+    color: $text;
     height: 114vh;
     padding-top: 2em;
     #events-container {
-      background-color: #000;
+      // background-color: #000;
       // CSS for Clear-style list items
       // @for $i from 1 through 20 {
       //   &>div:nth-child(#{$i}) {
@@ -148,16 +160,24 @@ export default {
       //   }
       // }
       &>#empty {
+        margin: auto;
+        max-width: 25em;
         margin-top: 4em;
-        background-color: black;
-        text-align: center;
+        // background-color: black;
+        //text-align: center;
         font-weight: 200;
         h2 {
           font-weight: 300;
-          color: $cream;
+          //color: $cream;
         }
         h4 {
-          color: $text-grey;
+          //color: $text-grey;
+        }
+        ol {
+          text-align: left;
+        }
+        #icon {
+          text-align: center;
         }
       }
     }
