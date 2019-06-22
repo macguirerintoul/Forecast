@@ -9,6 +9,8 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
     	builderOptions: {
+        productName: "Forecast",
+        appId: "com.mrintoul.forecast",
 			  win: {
 			  	target: [
 			  		"nsis",
@@ -16,6 +18,8 @@ module.exports = {
 			  	]
 			  },
 			  mac: {
+          category: 'public.app-category.productivity',
+          gatekeeperAssess : false,
 			  	target: [
 			  		"dmg",
 			  		"zip"
