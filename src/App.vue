@@ -2,6 +2,7 @@
   <div id="app">
     <div id="title-bar"><span>Forecast</span></div>
     <NewEvent></NewEvent>
+    <notifications group="forecast" position="bottom center" />
     <swipe-list ref="list" id="events-container" :items="events" transition-key="_id">
       <template v-slot="{ item, index, revealLeft, revealRight, close }">
         <Event @rightClick="eventRightClick(index)" @eventClicked="eventClicked(index)" :key="item._id" v-bind:index="index" v-bind:id="item._id" v-bind:title="item.title" v-bind:due="item.due" />

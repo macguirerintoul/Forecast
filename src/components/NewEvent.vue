@@ -16,6 +16,8 @@ const db = new Datastore({
   autoload: true
 });
 
+import Vue from 'vue'
+
 export default {
   name: 'NewEvent',
   data() {
@@ -30,9 +32,17 @@ export default {
     },
     createEvent: function() {
       console.log("Creating event - ", this.title)
-      this.$parent.addEvent(this.title, moment(this.due));
-      this.title = '';
-      this.due = '';
+      if (this.title == '' || this.due == '') {
+        this.$notify({
+          group: 'forecast',
+          type: 'error',
+          text: 'Please enter a title and a date.'
+        });
+      } else {
+        this.$parent.addEvent(this.title, moment(this.due));
+        this.title = '';
+        this.due = '';
+      }
     }
   }
 }
@@ -40,7 +50,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  $cream: #fffff7;
+  $text: #000000;
+  $placeholder: #aaa;
 
   #new-event {
     display: flex;
@@ -50,9 +61,9 @@ export default {
     button {
       background: none;
       border-radius: 1em;
-      color: rgba(255, 255, 255, 0.5);
+      color: $placeholder;
       border-width: 2px;
-      border-color: rgba(255, 255, 255, 0.5);
+      border-color: $placeholder;
       font-size: 1em;
       font-weight: 700;
       padding: 0.5em 1em;
@@ -69,17 +80,18 @@ export default {
       font-size: 1.2em;
       &,
       &::placeholder {
+        color: $placeholder;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
       &[type="text"] {
-        color: $cream;
+        color: $text;
       }
       &[type="date"] {
-        color: rgba(#FFF, 0.5);
+        color: $placeholder;
       }
       &[type="date"]:focus,
       &[type="date"]:valid {
-        color: $cream;
+        color: $text;
       }
       &:focus {
         outline: none;
