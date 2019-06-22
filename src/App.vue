@@ -119,6 +119,7 @@ export default {
 
 <style lang="scss">
   $light: #FFFFFF;
+  $light-grey: #aaa;
   $text: #000000;
   $cream: #fffff7;
   $text-grey: #aaa;
@@ -194,10 +195,10 @@ export default {
     overflow: hidden;
     user-select: none;
     display: flex;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid $light-grey;
     .swipeout-action {
       width: 4em;
-      background-color: #0000004f;
+      background-color: $light-grey;
       text-align: center;
       img {
         position: absolute;
