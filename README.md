@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.jpg" alt="Forecast logo">
+  <img width="500" src="./logo.jpg" alt="Forecast logo">
 </p>
 
 <div align="center">
@@ -25,6 +25,10 @@ When you add an item to your Forecast, you give it a title and a date. Then, For
 ## Where can I get it?
 
 *coming soon*
+
+## Who are you?
+
+I'm [Macguire Rintoul](https://mrintoul.com). Who are you?
 
 ## How do I request a feature?
 
