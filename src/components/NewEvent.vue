@@ -84,14 +84,14 @@ export default {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
       &[type="text"] {
-        color: $text;
+        color: $el-dark;
       }
       &[type="date"] {
         color: $placeholder;
       }
       &[type="date"]:focus,
       &[type="date"]:valid {
-        color: $text;
+        color: $el-dark;
       }
       &:focus {
         outline: none;

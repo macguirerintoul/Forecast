@@ -118,17 +118,11 @@ export default {
 </script>
 
 <style lang="scss">
-  $light: #FFFFFF;
-  $light-grey: #aaa;
-  $text: #000000;
-  $cream: #fffff7;
-  $text-grey: #aaa;
-
   html, body {
     margin: 0;
     min-height: 100%;
     box-sizing: border-box;
-    background-color: $light;
+    background-color: $bg-light;
   }
   #title-bar {
     display: flex;
@@ -150,11 +144,10 @@ export default {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: $text;
+    color: $el-dark;
     height: 114vh;
     padding-top: 2em;
     #events-container {
-      // background-color: #000;
       // CSS for Clear-style list items
       // @for $i from 1 through 20 {
       //   &>div:nth-child(#{$i}) {
@@ -165,15 +158,9 @@ export default {
         margin: auto;
         max-width: 25em;
         margin-top: 4em;
-        // background-color: black;
-        //text-align: center;
         font-weight: 200;
         h2 {
           font-weight: 300;
-          //color: $cream;
-        }
-        h4 {
-          //color: $text-grey;
         }
         ol {
           text-align: left;
@@ -207,7 +194,6 @@ export default {
         transform: translate(-50%, -50%);
         width: 50%;
         margin: auto;
-        opacity: 0.5;
       }
     }
     &.swipeout--disabled {

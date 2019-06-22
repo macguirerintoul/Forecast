@@ -35,7 +35,7 @@ export default {
 
 <style scoped lang="scss">
   .event {
-    padding: 1em;
+    padding: 2em 2em;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,7 +47,6 @@ export default {
     .due {
       display: flex;
       flex-direction: column;
-      opacity: 0.5;
       text-align: right;
       min-width: 4em;
       .amount {
