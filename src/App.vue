@@ -32,6 +32,7 @@
 
 <script>
 import { SwipeList, SwipeOut } from 'vue-swipe-actions';
+import 'vue-swipe-actions/dist/vue-swipe-actions.css';
 import Event from './components/Event.vue'
 import NewEvent from './components/NewEvent.vue'
 
@@ -171,67 +172,18 @@ export default {
       }
     }
   }
-
-  // Styles from vue-swipe-actions
-  // .swipeout is the class applied to each list item
-  .swipeout-list {
-    padding-top: 1em;
-  }
   .swipeout {
-    position: relative;
-    overflow: hidden;
-    user-select: none;
-    display: flex;
     border-bottom: 1px solid $light-grey;
     .swipeout-action {
-      width: 4em;
-      background-color: $light-grey;
-      text-align: center;
-      img {
-        position: absolute;
+     background-color: $light-grey;
+     padding: 0 1em;
+    img {
+        position: relative;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 50%;
-        margin: auto;
-      }
+        max-width: 2em;
     }
-    &.swipeout--disabled {
-      user-select: auto;
-    }
-    .swipeout-left,
-    .swipeout-right {
-      position: absolute;
-      height: 100%;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      z-index: 1;
-    }
-
   }
-  .swipeout.swipeout--transitioning .swipeout-action,
-  .swipeout.swipeout--transitioning .swipeout-content {
-    transition: transform 0.3s;
-  }
-  .swipeout .swipeout-content {
-    width: 100%;
-  }
-  .swipeout .swipeout-action,
-  .swipeout .swipeout-content {
-    will-change: transform;
-
-  }
-  .swipeout .swipeout-left {
-    left: 0;
-    transform: translateX(-100%);
-  }
-  .swipeout .swipeout-right {
-    display: flex;
-    right: 0;
-    transform: translateX(100%);
-  }
-  .swipeout-list-item {
-    outline: none;
-  }
+}
 </style>
