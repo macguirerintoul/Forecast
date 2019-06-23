@@ -64,9 +64,8 @@ export default {
       db.find({}).sort({ due: 1 }).exec((err, docs) => {
         this.events = docs;
         this.events.forEach(object => {
-          // console.log(object.due);
+          // Due dates are stored in database as strings, so convert them back into Moment objects
           object.due = moment(object.due);
-          // console.log(object.due);
         });
       });
     },
