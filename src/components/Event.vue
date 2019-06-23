@@ -22,8 +22,8 @@ export default {
   computed: {
     amount: function () {
       let fromNow = moment(this.due).fromNow(moment().isBefore(moment(this.due)));
-      let aReplaced = fromNow.charAt(0) == 'a' ? fromNow.replace('a', '1') : fromNow;
-      return aReplaced.substring(0, aReplaced.indexOf(" "));
+      let amount = fromNow.substring(0, fromNow.indexOf(" "));
+      return (amount == 'a' || amount == 'an') ? '1' : amount;
     },
     unit: function() {
       let str = moment(this.due).fromNow(moment().isBefore(moment(this.due)));
