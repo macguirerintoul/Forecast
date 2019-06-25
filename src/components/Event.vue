@@ -17,7 +17,7 @@ export default {
     id: String,
     index: Number,
     title: String,
-    due: Object
+    due: String
   },
   computed: {
     amount: function () {
