@@ -1,9 +1,9 @@
 <template>
-  <div id="new-event">
+  <div id="new-event" v-on:keyup.enter="createEvent">
     <div>
       <input type="text" placeholder="New Event" v-model="title">
       <input v-on:focus="dateFocused()" type="date" v-model="date" required>
-      <input v-on:focus="timeFocused()" type="time" v-model="time">
+      <input v-on:focus="timeFocused()" type="time" v-model="time" required>
     </div>
     <button type="submit" value="submit" @click="createEvent">Create</button>
   </div>
@@ -37,7 +37,7 @@ export default {
     },
     createEvent: function() {
       console.log("Creating event - ", this.title)
-      if (this.title == '' || this.due == '') {
+      if (this.title == '' || this.date == '') {
         this.$notify({
           group: 'forecast',
           type: 'error',
