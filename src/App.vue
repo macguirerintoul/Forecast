@@ -53,9 +53,11 @@ export default {
       events: []
     }
   },
-  created() {
+  mounted() {
     this.getEvents();
-    window.scrollTo(0, document.body.scrollHeight);
+    var rect = document.getElementById("events-container").getBoundingClientRect();
+    // 32 is the hard-coded height of the menu bar (2em)
+    window.scrollTo(0, rect.top - 32);
   },
   methods: {
     getEvents() {
@@ -99,7 +101,7 @@ export default {
         });
         console.log("Event added")
         this.events.sort(function(a, b) {
-          console.log(a.due.diff(b.due));
+          // console.log(a.due.diff(b.due));
           return a.due.diff(b.due);
         });
         console.log("Events sorted")
@@ -132,9 +134,10 @@ export default {
     width: 100%;
     z-index: 10;
     -webkit-app-region: drag;
-    background-color: transparent;
-    height: 2em;
+    background-color: $bg-light;
+    height: 2.2em;
     text-align: center;
+    border-bottom: 1px solid $light-grey;
     span {
       margin: auto;
       font-size: 10pt;
@@ -156,11 +159,11 @@ export default {
       // }
       &>#empty {
         margin: auto;
+        padding: 1em;
         max-width: 25em;
         margin-top: 4em;
-        font-weight: 200;
         h2 {
-          font-weight: 300;
+          font-weight: 400;
         }
         ol {
           text-align: left;
@@ -171,8 +174,14 @@ export default {
       }
     }
   }
+  /*
+    Below is custom CSS for vue-swipe-actions.
+  */
   .swipeout {
     border-bottom: 1px solid $light-grey;
+    &:first-of-type {
+      border-top: 1px solid $light-grey;
+    }
     .swipeout-action {
      background-color: $light-grey;
      padding: 0 1em;

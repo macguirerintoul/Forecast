@@ -1,10 +1,11 @@
 <template>
-  <div id="new-event">
+  <div id="new-event" v-on:keypress.enter="createEvent">
     <div>
-      <input type="text" placeholder="New Event" v-model="title">
-      <input v-on:focus="dateFocused()" type="date" v-model="due" required>
+      <input ref="title" type="text" placeholder="New Event" v-model="title">
+      <input v-on:focus="dateFocused()" type="date" v-model="date" required>
+      <input v-on:focus="timeFocused()" type="time" v-model="time" required>
     </div>
-    <button type="submit" value="submit" @click="createEvent">Create</button>
+    <button v-on:keypress.prevent @click="createEvent">Create</button>
   </div>
 </template>
 
@@ -16,42 +17,45 @@ const db = new Datastore({
   autoload: true
 });
 
-import Vue from 'vue'
-
 export default {
   name: 'NewEvent',
   data() {
     return {
       title: '',
-      due: '',
+      date: '',
+      time: '',
     }
   },
   methods: {
     dateFocused() {
-      this.due = (this.due == '') ? moment().format("YYYY-MM-DD").toString() : this.due;
+      this.date = (this.date == '') ? moment().format("YYYY-MM-DD").toString() : this.date;
+    },
+    timeFocused() {
+      this.time = (this.time == '') ? moment().format("HH:mm").toString() : this.time;
     },
     createEvent: function() {
       console.log("Creating event - ", this.title)
-      if (this.title == '' || this.due == '') {
+      if (this.title == '' || this.date == '') {
         this.$notify({
           group: 'forecast',
           type: 'error',
           text: 'Please enter a title and a date.'
         });
       } else {
-        this.$parent.addEvent(this.title, moment(this.due));
-        this.title = '';
-        this.due = '';
+        // Check if time is empty to avoid adding a space
+        let due = this.time = '' ? moment(this.date) : moment(this.date + ' ' + this.time)
+        this.$parent.addEvent(this.title, due);
+        this.title = ''
+        this.date = ''
+        this.time = ''
       }
+      this.$refs.title.focus()
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  $text: #000000;
-  $placeholder: #aaa;
 
   #new-event {
     display: flex;
@@ -81,7 +85,7 @@ export default {
       &,
       &::placeholder {
         color: $placeholder;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-family: $font-stack;
       }
       &[type="text"] {
         color: $el-dark;
@@ -90,7 +94,9 @@ export default {
         color: $placeholder;
       }
       &[type="date"]:focus,
-      &[type="date"]:valid {
+      &[type="date"]:valid,
+      &[type="time"]:focus,
+      &[type="time"]:valid {
         color: $el-dark;
       }
       &:focus {
