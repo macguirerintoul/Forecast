@@ -44,7 +44,7 @@ Forecast would not be possible without the hard work of many other people (thank
 
 ## License
 
-Forecast is licensed under the [MIT License](https://github.com/mrintoul/Forecast/blob/master/LICENSE). In short, this means you are free to do whatever you want with it.
+Forecast is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. In short, this means you are free to do whatever you want with it, as long as you don't sell it.
 
 ## Notes
 
