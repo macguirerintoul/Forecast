@@ -3,12 +3,16 @@
   "env": {
     "node": true
   },
+  "plugins": ["prettier"],
   "extends": [
-    "plugin:vue/essential",
-    "eslint:recommended"
+    "plugin:vue/recommended",
+    "airbnb-base",
+    "plugin:prettier/recommended",
+    "prettier/vue"
   ],
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "prettier/prettier": "error"
   },
   "parserOptions": {
     "parser": "babel-eslint"

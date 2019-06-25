@@ -1,8 +1,8 @@
 <template>
   <div
+    class="event"
     @contextmenu="$emit('rightClick')"
     @click="$emit('eventClicked')"
-    class="event"
   >
     <h2>{{ title }}</h2>
     <div class="due">
@@ -18,21 +18,21 @@ const moment = require('moment')
 export default {
   name: 'Event',
   props: {
-    id: String,
-    index: Number,
-    title: String,
-    due: Object,
+    id: { type: String, required: true },
+    index: { type: Number, required: true },
+    title: { type: String, required: true },
+    due: { type: Object, required: true },
   },
   computed: {
-    amount: function() {
-      let fromNow = moment(this.due).fromNow(
+    amount() {
+      const fromNow = moment(this.due).fromNow(
         moment().isBefore(moment(this.due))
       )
-      let amount = fromNow.substring(0, fromNow.indexOf(' '))
-      return amount == 'a' || amount == 'an' ? '1' : amount
+      const amount = fromNow.substring(0, fromNow.indexOf(' '))
+      return amount === 'a' || amount === 'an' ? '1' : amount
     },
-    unit: function() {
-      let str = moment(this.due).fromNow(moment().isBefore(moment(this.due)))
+    unit() {
+      const str = moment(this.due).fromNow(moment().isBefore(moment(this.due)))
       return str.substring(str.indexOf(' '))
     },
   },

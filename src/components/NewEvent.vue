@@ -1,21 +1,16 @@
 <template>
-  <div id="new-event" v-on:keypress.enter="createEvent">
+  <div id="new-event" @keypress.enter="createEvent">
     <div>
-      <input ref="title" type="text" placeholder="New Event" v-model="title" />
-      <input v-on:focus="dateFocused()" type="date" v-model="date" required />
-      <input v-on:focus="timeFocused()" type="time" v-model="time" required />
+      <input ref="title" v-model="title" type="text" placeholder="New Event" />
+      <input v-model="date" type="date" required @focus="dateFocused()" />
+      <input v-model="time" type="time" required @focus="timeFocused()" />
     </div>
-    <button v-on:keypress.prevent @click="createEvent">Create</button>
+    <button @keypress.prevent @click="createEvent">Create</button>
   </div>
 </template>
 
 <script>
 const moment = require('moment')
-const Datastore = require('nedb')
-const db = new Datastore({
-  filename: 'forecast.db',
-  autoload: true,
-})
 
 export default {
   name: 'NewEvent',
@@ -29,7 +24,7 @@ export default {
   methods: {
     dateFocused() {
       this.date =
-        this.date == ''
+        this.date === ''
           ? moment()
               .format('YYYY-MM-DD')
               .toString()
@@ -37,15 +32,15 @@ export default {
     },
     timeFocused() {
       this.time =
-        this.time == ''
+        this.time === ''
           ? moment()
               .format('HH:mm')
               .toString()
           : this.time
     },
-    createEvent: function() {
+    createEvent() {
       console.log('Creating event - ', this.title)
-      if (this.title == '' || this.date == '') {
+      if (this.title === '' || this.date === '') {
         this.$notify({
           group: 'forecast',
           type: 'error',
@@ -53,9 +48,10 @@ export default {
         })
       } else {
         // Check if time is empty to avoid adding a space
-        let due = (this.time = ''
-          ? moment(this.date)
-          : moment(this.date + ' ' + this.time))
+        const due =
+          this.time === ''
+            ? moment(this.date)
+            : moment(`${this.date} ${this.time}`)
         this.$parent.addEvent(this.title, due)
         this.title = ''
         this.date = ''
