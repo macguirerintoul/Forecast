@@ -53,9 +53,11 @@ export default {
       events: []
     }
   },
-  created() {
+  mounted() {
     this.getEvents();
-    window.scrollTo(0, document.body.scrollHeight);
+    var rect = document.getElementById("events-container").getBoundingClientRect();
+    // 32 is the hard-coded height of the menu bar (2em)
+    window.scrollTo(0, rect.top - 32);
   },
   methods: {
     getEvents() {

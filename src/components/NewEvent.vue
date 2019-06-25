@@ -5,7 +5,7 @@
       <input v-on:focus="dateFocused()" type="date" v-model="date" required>
       <input v-on:focus="timeFocused()" type="time" v-model="time" required>
     </div>
-    <button @click="createEvent">Create</button>
+    <button v-on:keypress.prevent @click="createEvent">Create</button>
   </div>
 </template>
 
