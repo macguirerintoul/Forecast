@@ -40,9 +40,12 @@ Absolutely. [Create an issue](https://github.com/mrintoul/Forecast/issues/new) w
 
 ## Shout outs
 
-Forecast would not be possible without the hard work of many other people (thanks!).
+Forecast would not be possible without the hard work of many other people (thanks!). Check out the [dependencies](https://github.com/mrintoul/Forecast/network/dependencies) for some of the packages and tools that helped create Forecast.
 
-- [@nklayman's vue-cli-plugin-electron-builder](https://github.com/nklayman/vue-cli-plugin-electron-builder)
-- [Electron](https://github.com/electron/electron)
-- [Vue](https://github.com/vuejs/vue)
-- This [Smiling Sun Handmade Symbol SVG Vector](https://www.svgrepo.com/svg/123560/smiling-sun-handmade-symbol)
+## License
+
+Forecast is licensed under the [MIT License](https://github.com/mrintoul/Forecast/blob/master/LICENSE). In short, this means you are free to do whatever you want with it.
+
+## Notes
+
+Thanks to this [Smiling Sun Handmade Symbol SVG Vector](https://www.svgrepo.com/svg/123560/smiling-sun-handmade-symbol) for starring as the logo and app icon of Forecast.
