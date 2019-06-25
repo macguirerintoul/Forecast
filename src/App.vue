@@ -157,6 +157,7 @@ export default {
       // }
       &>#empty {
         margin: auto;
+        padding: 1em;
         max-width: 25em;
         margin-top: 4em;
         h2 {
