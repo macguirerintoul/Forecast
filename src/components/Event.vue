@@ -17,7 +17,7 @@ export default {
     id: String,
     index: Number,
     title: String,
-    due: String
+    due: Object
   },
   computed: {
     amount: function () {
@@ -39,6 +39,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     h2 {
       margin: 0;
       font-size: 1.75em;

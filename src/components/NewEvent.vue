@@ -1,11 +1,11 @@
 <template>
-  <div id="new-event" v-on:keyup.enter="createEvent">
+  <div id="new-event" v-on:keypress.enter="createEvent">
     <div>
-      <input type="text" placeholder="New Event" v-model="title">
+      <input ref="title" type="text" placeholder="New Event" v-model="title">
       <input v-on:focus="dateFocused()" type="date" v-model="date" required>
       <input v-on:focus="timeFocused()" type="time" v-model="time" required>
     </div>
-    <button type="submit" value="submit" @click="createEvent">Create</button>
+    <button @click="createEvent">Create</button>
   </div>
 </template>
 
@@ -16,8 +16,6 @@ const db = new Datastore({
   filename: 'forecast.db',
   autoload: true
 });
-
-// import Vue from 'vue'
 
 export default {
   name: 'NewEvent',
@@ -44,13 +42,14 @@ export default {
           text: 'Please enter a title and a date.'
         });
       } else {
-        let due = moment(this.date + ' ' + this.time).toString()
-        console.log(due)
+        // Check if time is empty to avoid adding a space
+        let due = this.time = '' ? moment(this.date) : moment(this.date + ' ' + this.time)
         this.$parent.addEvent(this.title, due);
         this.title = ''
         this.date = ''
         this.time = ''
       }
+      this.$refs.title.focus()
     }
   }
 }
