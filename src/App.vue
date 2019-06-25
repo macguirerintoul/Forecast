@@ -4,8 +4,8 @@
     <NewEvent></NewEvent>
     <notifications group="forecast" position="bottom center" />
     <swipe-list
-      ref="list"
       id="events-container"
+      ref="list"
       :items="events"
       transition-key="_id"
     >

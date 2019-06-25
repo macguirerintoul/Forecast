@@ -1,9 +1,14 @@
-'use strict'
-const { app, protocol, BrowserWindow, Menu } = require("electron");
+// ignoring because it should not be in dependencies
+// eslint-disable-next-line
 import {
   createProtocol,
-  installVueDevtools
+  installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib'
+
+// ignoring because it should not be in dependencies
+// eslint-disable-next-line
+const { app, protocol, BrowserWindow } = require('electron')
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -12,14 +17,14 @@ let win
 
 // Standard scheme must be registered before the app is ready
 protocol.registerStandardSchemes(['app'], { secure: true })
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     width: 450,
     height: 600,
     titleBarStyle: 'hiddenInset',
-    minWidth: 330
-  });
+    minWidth: 330,
+  })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -60,9 +65,13 @@ app.on('activate', () => {
 app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
-    await installVueDevtools();
+    try {
+      await installVueDevtools()
+    } catch (e) {
+      console.error('Vue Devtools failed to install:', e.toString())
+    }
   }
-  createWindow();
+  createWindow()
 })
 
 // Exit cleanly on request from parent process in development mode.
