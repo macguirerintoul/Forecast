@@ -236,6 +236,12 @@ body {
   }
   #links {
     text-align: center;
+    a {
+      color: $el-dark;
+    }
+    h6 {
+      font-weight: 300;
+    }
   }
 
   #events-container {
