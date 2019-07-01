@@ -7,7 +7,7 @@ import {
 
 // ignoring because it should not be in dependencies
 // eslint-disable-next-line
-const { app, protocol, BrowserWindow } = require('electron')
+const { app, protocol, BrowserWindow, shell } = require('electron')
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 

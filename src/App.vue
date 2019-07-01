@@ -2,7 +2,7 @@
   <div id="app">
     <div id="title-bar"><span>Forecast</span></div>
     <NewEvent></NewEvent>
-    <notifications group="forecast" position="bottom center" />
+    <notifications max="1" group="forecast" position="bottom center" />
     <swipe-list
       id="events-container"
       ref="list"
@@ -38,6 +38,24 @@
           <li>Hit enter or click create</li>
           <li>Drag items left (or right-click) to complete them</li>
         </ol>
+        <div id="links">
+          <h6>
+            Created by
+            <a
+              href="https://mrintoul.com"
+              @click="openURL('https://mrintoul.com', $event)"
+              >Macguire Rintoul</a
+            >
+          </h6>
+          <h6>
+            View on
+            <a
+              href="https://github.com/mrintoul/forecast"
+              @click="openURL('https://github.com/mrintoul/forecast', $event)"
+              >GitHub</a
+            >
+          </h6>
+        </div>
       </div>
     </swipe-list>
   </div>
@@ -52,6 +70,7 @@ import NewEvent from './components/NewEvent.vue'
 const Datastore = require('nedb')
 const db = new Datastore({ filename: 'forecast.db', autoload: true })
 const moment = require('moment')
+const shell = require('electron').shell
 
 export default {
   name: 'app',
@@ -75,6 +94,10 @@ export default {
     window.scrollTo(0, rect.top - 32)
   },
   methods: {
+    openURL(url, event) {
+      event.preventDefault()
+      shell.openExternal(url)
+    },
     getEvents() {
       console.log('getEvents - App')
       db.loadDatabase()
@@ -169,6 +192,17 @@ body {
   color: $el-dark;
   height: 114vh;
   padding-top: 2em;
+  h1,
+  h2 {
+    margin: 0;
+  }
+  h6 {
+    margin: 0.2em 0;
+  }
+  #links {
+    text-align: center;
+  }
+
   #events-container {
     // CSS for Clear-style list items
     // @for $i from 1 through 20 {
