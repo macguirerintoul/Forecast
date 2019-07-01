@@ -2,7 +2,7 @@
   <div id="app">
     <div id="title-bar"><span>Forecast</span></div>
     <NewEvent></NewEvent>
-    <notifications max="1" group="forecast" position="bottom center" />
+    <notifications group="forecast" position="bottom center" />
     <swipe-list
       id="events-container"
       ref="list"
@@ -11,13 +11,13 @@
     >
       <template v-slot="{ item, index, revealLeft, revealRight, close }">
         <Event
+          :id="item._id"
+          :key="item._id"
+          :index="index"
+          :title="item.title"
+          :due="item.due"
           @rightClick="eventRightClick(index)"
           @eventClicked="eventClicked(index)"
-          :key="item._id"
-          v-bind:index="index"
-          v-bind:id="item._id"
-          v-bind:title="item.title"
-          v-bind:due="item.due"
         />
       </template>
       <template v-slot:right="{ item }">
@@ -68,12 +68,14 @@ import Event from './components/Event.vue'
 import NewEvent from './components/NewEvent.vue'
 
 const Datastore = require('nedb')
-const db = new Datastore({ filename: 'forecast.db', autoload: true })
 const moment = require('moment')
-const shell = require('electron').shell
+// eslint-disable-next-line
+const eShell = require('electron').shell
+
+const db = new Datastore({ filename: 'forecast.db', autoload: true })
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     Event,
     NewEvent,
@@ -85,9 +87,10 @@ export default {
       events: [],
     }
   },
-  mounted() {
+  async mounted() {
+    await this.clearBlankEvents()
     this.getEvents()
-    var rect = document
+    const rect = document
       .getElementById('events-container')
       .getBoundingClientRect()
     // 32 is the hard-coded height of the menu bar (2em)
@@ -96,7 +99,35 @@ export default {
   methods: {
     openURL(url, event) {
       event.preventDefault()
-      shell.openExternal(url)
+      eShell.openExternal(url)
+    },
+    clearBlankEvents() {
+      /*
+        Clear events without a title if they exist in the database.
+        These may have resulted from earlier versions of the app where
+        data validation wasn't implemented yet, or if something is
+        going wrong in the creation method.
+      */
+      db.loadDatabase()
+      return new Promise(resolve => {
+        db.find({}).exec((error, docs) => {
+          console.log(docs)
+          let itemsProcessed = 0
+          docs.forEach(event => {
+            if (event.title === '') {
+              console.log('empty title')
+              // eslint-disable-next-line
+              db.remove({ _id: event._id }, {}, (err, numberRemoved) => {
+                console.log(err, numberRemoved)
+              })
+            }
+            itemsProcessed += 1
+            if (itemsProcessed === docs.length) {
+              resolve()
+            }
+          })
+        })
+      })
     },
     getEvents() {
       console.log('getEvents - App')
@@ -107,13 +138,15 @@ export default {
           this.events = docs
           this.events.forEach(object => {
             // Due dates are stored in database as strings, so convert them back into Moment objects
+            // eslint-disable-next-line
             object.due = moment(object.due)
           })
         })
     },
     eventRightClick(index) {
+      // eslint-disable-next-line
       const list = this.$refs.list
-      if (list.isRevealed(index) == 'right') {
+      if (list.isRevealed(index) === 'right') {
         list.closeActions(index)
       } else {
         list.revealRight(index)
@@ -128,18 +161,19 @@ export default {
     addEvent(title, due) {
       db.insert(
         {
-          title: title,
-          due: due,
+          title,
+          due,
         },
         (error, document) => {
           console.log(document)
           this.events.push({
+            // eslint-disable-next-line
             _id: document._id,
             title: document.title,
             due: document.due,
           })
           console.log('Event added')
-          this.events.sort(function(a, b) {
+          this.events.sort((a, b) => {
             // console.log(a.due.diff(b.due));
             return a.due.diff(b.due)
           })
@@ -149,7 +183,8 @@ export default {
     },
     removeEvent(id) {
       console.log('Removing event ', id)
-      let index = this.events.findIndex(object => object._id == id)
+      // eslint-disable-next-line
+      const index = this.events.findIndex(object => object._id == id)
       console.log(index)
       db.remove({ _id: id }, () => {
         this.events.splice(index, 1)
