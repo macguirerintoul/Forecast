@@ -6,7 +6,7 @@
 
 [![macOS](https://img.shields.io/badge/macOS-Download-green.svg)](https://github.com/mrintoul/Forecast/releases)
 [![Windows](https://img.shields.io/badge/Windows-Download-green.svg)](https://github.com/mrintoul/Forecast/releases)
-[![License](https://img.shields.io/badge/license-CC%20BY--NC--SA-blue.svg)](/LICENSE.md)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC--SA-blue.svg)](/LICENSE.md)
 
 </div>
 
