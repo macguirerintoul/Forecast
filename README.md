@@ -4,9 +4,9 @@
 
 <div align="center">
 
-  [![macOS](https://img.shields.io/badge/macOS-Download-green.svg)](https://github.com/mrintoul/Forecast/releases)
-  [![Windows](https://img.shields.io/badge/Windows-Download-green.svg)](https://github.com/mrintoul/Forecast/releases)
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![macOS](https://img.shields.io/badge/macOS-Download-green.svg)](https://github.com/mrintoul/Forecast/releases)
+[![Windows](https://img.shields.io/badge/Windows-Download-green.svg)](https://github.com/mrintoul/Forecast/releases)
+[![License](https://img.shields.io/badge/license-CC%20BY--NC--SA-blue.svg)](/LICENSE.md)
 
 </div>
 
@@ -20,11 +20,11 @@ When you add an item to your Forecast, you give it a title and a date. Then, For
 
 ## Demo
 
-*coming soon*
+_coming soon_
 
 ## Where can I get it?
 
-*coming soon*
+_coming soon_
 
 ## Who are you?
 
