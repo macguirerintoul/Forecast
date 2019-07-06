@@ -26,6 +26,7 @@ export default {
       this.date =
         this.date === ''
           ? moment()
+              .add(1, 'days')
               .format('YYYY-MM-DD')
               .toString()
           : this.date

@@ -16,7 +16,9 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 let win
 
 // Standard scheme must be registered before the app is ready
-protocol.registerStandardSchemes(['app'], { secure: true })
+protocol.registerSchemesAsPrivileged([
+  { scheme: 'app', privileges: { secure: true, standard: true } },
+])
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
@@ -24,6 +26,9 @@ function createWindow() {
     height: 600,
     titleBarStyle: 'hiddenInset',
     minWidth: 330,
+    webPreferences: {
+      nodeIntegration: true,
+    },
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
