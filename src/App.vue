@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <div id="title-bar"><span>Forecast</span></div>
+    <div id="title-bar" :class="{ windows: os === 'win32' }">
+      <span>Forecast</span>
+    </div>
     <NewEvent></NewEvent>
     <notifications group="forecast" position="bottom center" />
     <swipe-list
@@ -71,7 +73,7 @@ const Datastore = require('nedb')
 const moment = require('moment')
 // eslint-disable-next-line
 const eShell = require('electron').shell
-
+const os = require('os')
 const db = new Datastore({ filename: 'forecast.db', autoload: true })
 
 export default {
@@ -85,6 +87,7 @@ export default {
   data() {
     return {
       events: [],
+      os: os.platform(),
     }
   },
   async mounted() {
@@ -92,8 +95,14 @@ export default {
     const rect = document
       .getElementById('events-container')
       .getBoundingClientRect()
-    // 32 is the hard-coded height of the menu bar (2em)
-    window.scrollTo(0, rect.top - 32)
+
+    if (this.os === 'win32') {
+      window.scrollTo(0, rect.top)
+    } else if (this.os === 'darwin') {
+      // 32 is the hard-coded height of the menu bar (2em)
+      window.scrollTo(0, rect.top - 32)
+    }
+
     await this.clearBlankEvents()
     this.getEvents()
   },
@@ -219,6 +228,9 @@ body {
     margin: auto;
     font-size: 10pt;
   }
+}
+#title-bar.windows {
+  display: none;
 }
 #app {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
