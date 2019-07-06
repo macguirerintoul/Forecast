@@ -88,13 +88,14 @@ export default {
     }
   },
   async mounted() {
-    await this.clearBlankEvents()
-    this.getEvents()
+    // For some reason, this must happen first or it doesn't work
     const rect = document
       .getElementById('events-container')
       .getBoundingClientRect()
     // 32 is the hard-coded height of the menu bar (2em)
     window.scrollTo(0, rect.top - 32)
+    await this.clearBlankEvents()
+    this.getEvents()
   },
   methods: {
     openURL(url, event) {
