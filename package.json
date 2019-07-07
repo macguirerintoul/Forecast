@@ -4,16 +4,13 @@
   "version": "0.1.0",
   "description": "A desktop app to keep track of upcoming tasks.",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/mrintoul/Forecast.git"
-    },
-    "license": "CC BY-NC-SA 4.0",
+    "type": "git",
+    "url": "https://github.com/mrintoul/Forecast.git"
+  },
+  "license": "CC BY-NC-SA 4.0",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build",
-    "electron:serve": "vue-cli-service electron:serve",
+    "build": "vue-cli-service electron:build -mw",
+    "serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
@@ -29,10 +26,15 @@
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-service": "^3.8.4",
     "babel-eslint": "^10.0.1",
-    "electron": "^3.0.0",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "electron": "^5.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-vue": "^5.2.3",
     "node-sass": "^4.12.0",
+    "prettier": "^1.18.2",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-electron-builder": "^1.3.4",
     "vue-template-compiler": "2.6.4"
