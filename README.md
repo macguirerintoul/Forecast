@@ -20,11 +20,11 @@ When you add an item to your Forecast, you give it a title and a date. Then, For
 
 ## Demo
 
-_coming soon_
+You can try it out for yourself at [forecast.macguire.me](https://forecast.macguire.me/download).
 
 ## Where can I get it?
 
-_coming soon_
+[Right here.](https://forecast.macguire.me/download)
 
 ## Who are you?
 
