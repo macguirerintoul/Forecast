@@ -4,8 +4,8 @@
 
 <div align="center">
 
-[![macOS](https://img.shields.io/badge/macOS-Download-green.svg)](https://github.com/mrintoul/Forecast/releases)
-[![Windows](https://img.shields.io/badge/Windows-Download-green.svg)](https://github.com/mrintoul/Forecast/releases)
+[![macOS](https://img.shields.io/badge/macOS-Download-green.svg)](https://github.com/mrintoul/Forecast/releases/download/v1.0.1/Forecast-1.0.1.dmg)
+[![Windows](https://img.shields.io/badge/Windows-Download-green.svg)](https://github.com/mrintoul/Forecast/releases/download/v1.0.1/Forecast.Setup.1.0.1.exe)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA-blue.svg)](/LICENSE.md)
 
 </div>
