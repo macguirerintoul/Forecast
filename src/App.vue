@@ -42,19 +42,24 @@
         </ol>
         <div id="links">
           <h6>
-            Created by
             <a
-              href="https://mrintoul.com"
-              @click="openURL('https://mrintoul.com', $event)"
-              >Macguire Rintoul</a
+              href="https://forecast.macguire.me"
+              @click="openURL('https://forecast.macguire.me', $event)"
+              >Website</a
             >
-          </h6>
-          <h6>
-            View on
+            |
             <a
               href="https://github.com/mrintoul/forecast"
               @click="openURL('https://github.com/mrintoul/forecast', $event)"
               >GitHub</a
+            >
+          </h6>
+          <h6>
+            Created by
+            <a
+              href="https://macguire.me"
+              @click="openURL('https://macguire.me', $event)"
+              >Macguire Rintoul</a
             >
           </h6>
         </div>
@@ -74,6 +79,7 @@ const moment = require('moment')
 // eslint-disable-next-line
 const eShell = require('electron').shell
 const os = require('os')
+
 const db = new Datastore({ filename: 'forecast.db', autoload: true })
 
 export default {

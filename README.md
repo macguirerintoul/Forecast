@@ -28,7 +28,7 @@ _coming soon_
 
 ## Who are you?
 
-I'm [Macguire Rintoul](https://mrintoul.com). Who are you?
+I'm [Macguire Rintoul](https://macguire.me). Who are you?
 
 ## How do I request a feature?
 
