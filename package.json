@@ -54,12 +54,5 @@
     "not ie <= 8"
   ],
   "main": "background.js",
-  "productName": "Forecast",
-  "build": {
-    "publish": [
-      {
-        "provider": "github"
-      }
-    ]
-  }
+  "productName": "Forecast"
 }
