@@ -62,6 +62,9 @@
               >Macguire Rintoul</a
             >
           </h6>
+          <h6>
+            Forecast tracks anonymized usage data for analytics purposes only.
+          </h6>
         </div>
       </div>
     </swipe-list>
@@ -118,7 +121,7 @@ export default {
       .then(response => response.json())
       .then(data => {
         // gets latest version from GitHub by taking it from latest release tag name
-        if (compareVersions(data.name.substr(1), currentVersion)) {
+        if (compareVersions(data.name.substr(1), currentVersion) > 0) {
           console.log('Newer version available')
           this.$notify({
             group: 'forecast',
