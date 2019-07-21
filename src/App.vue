@@ -79,6 +79,7 @@ const moment = require('moment')
 // eslint-disable-next-line
 const eShell = require('electron').shell
 const os = require('os')
+const { trackEvent } = require('./analytics')
 
 const db = new Datastore({ filename: 'forecast.db', autoload: true })
 
@@ -111,6 +112,7 @@ export default {
 
     await this.clearBlankEvents()
     this.getEvents()
+    trackEvent('User Interaction', 'App Opened')
   },
   methods: {
     openURL(url, event) {
@@ -189,6 +191,7 @@ export default {
             due: document.due,
           })
           console.log('Event added')
+          trackEvent('User Interaction', 'Event Created')
           this.events.sort((a, b) => {
             // console.log(a.due.diff(b.due));
             return a.due.diff(b.due)
@@ -204,6 +207,7 @@ export default {
       console.log(index)
       db.remove({ _id: id }, () => {
         this.events.splice(index, 1)
+        trackEvent('User Interaction', 'Event Removed')
       })
     },
   },
