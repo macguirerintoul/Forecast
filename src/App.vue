@@ -77,11 +77,14 @@ import NewEvent from './components/NewEvent.vue'
 const Datastore = require('nedb')
 const moment = require('moment')
 // eslint-disable-next-line
-const eShell = require('electron').shell
+const { app, shell } = require('electron')
 const os = require('os')
-const { trackEvent } = require('./analytics')
+// eslint-disable-next-line
+const currentVersion = require('electron').remote.app.getVersion()
+const compareVersions = require('compare-versions')
 
 const db = new Datastore({ filename: 'forecast.db', autoload: true })
+const { trackEvent } = require('./analytics')
 
 export default {
   name: 'App',
@@ -110,6 +113,25 @@ export default {
       window.scrollTo(0, rect.top - 32)
     }
 
+    // check for updates and notify if a newer version has been uploaded to GitHub
+    fetch('https://api.github.com/repos/mrintoul/forecast/releases/latest')
+      .then(response => response.json())
+      .then(data => {
+        // gets latest version from GitHub by taking it from latest release tag name
+        if (compareVersions(data.name.substr(1), currentVersion)) {
+          console.log('Newer version available')
+          this.$notify({
+            group: 'forecast',
+            type: 'success',
+            title: 'Newer version available!',
+            text: 'Visit the website (linked above) to get it.',
+          })
+        } else {
+          console.log('Installed version is up to date')
+        }
+      })
+      .catch(error => console.error(error))
+
     await this.clearBlankEvents()
     this.getEvents()
     trackEvent('User Interaction', 'App Opened')
@@ -117,7 +139,7 @@ export default {
   methods: {
     openURL(url, event) {
       event.preventDefault()
-      eShell.openExternal(url)
+      shell.openExternal(url)
     },
     clearBlankEvents() {
       /*
@@ -129,7 +151,6 @@ export default {
       db.loadDatabase()
       return new Promise(resolve => {
         db.find({}).exec((error, docs) => {
-          console.log(docs)
           let itemsProcessed = 0
           docs.forEach(event => {
             if (event.title === '') {
