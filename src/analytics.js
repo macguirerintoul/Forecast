@@ -13,7 +13,7 @@ const userId = nodeStorage.getItem('userid') || uuid()
 // (re)save the userid, so it persists for the next app session.
 nodeStorage.setItem('userid', userId)
 
-const user = ua(window.process.env.GOOGLE_ANALYTICS, userId)
+const user = ua('UA-143405741-2', userId)
 
 function trackEvent(category, action, label, value) {
   user
