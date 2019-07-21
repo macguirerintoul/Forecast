@@ -87,7 +87,7 @@ const currentVersion = require('electron').remote.app.getVersion()
 const compareVersions = require('compare-versions')
 
 const db = new Datastore({ filename: 'forecast.db', autoload: true })
-const { trackEvent } = require('./analytics')
+const { trackEvent, trackPageview } = require('./analytics')
 
 export default {
   name: 'App',
@@ -137,7 +137,7 @@ export default {
 
     await this.clearBlankEvents()
     this.getEvents()
-    trackEvent('User Interaction', 'App Opened')
+    trackPageview('/events', 'Events')
   },
   methods: {
     openURL(url, event) {

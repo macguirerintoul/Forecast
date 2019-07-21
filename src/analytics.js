@@ -26,4 +26,8 @@ function trackEvent(category, action, label, value) {
     .send()
 }
 
-module.exports = { trackEvent }
+function trackPageview(path, title) {
+  user.pageview(path, 'https://forecast.macguire.me', title).send()
+}
+
+module.exports = { trackEvent, trackPageview }
