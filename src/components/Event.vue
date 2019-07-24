@@ -1,11 +1,7 @@
 <template>
-  <div
-    class="event"
-    @contextmenu="$emit('rightClick')"
-    @click="$emit('eventClicked')"
-  >
+  <div class="event" @contextmenu="$emit('rightClick')">
     <h2>{{ title }}</h2>
-    <div class="due">
+    <div class="due" :class="{ overdue: isOverdue }">
       <span class="amount">{{ amount }}</span>
       <span class="unit">{{ unit }}</span>
     </div>
@@ -24,6 +20,9 @@ export default {
     due: { type: Object, required: true },
   },
   computed: {
+    isOverdue() {
+      return moment(this.due).isBefore(moment())
+    },
     amount() {
       const fromNow = moment(this.due).fromNow(
         moment().isBefore(moment(this.due))
@@ -59,6 +58,9 @@ export default {
       font-size: 2em;
       font-weight: 700;
     }
+  }
+  .overdue {
+    color: crimson;
   }
 }
 </style>

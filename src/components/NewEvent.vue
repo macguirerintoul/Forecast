@@ -69,7 +69,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1em;
+  padding: 1em 2em;
   button {
     background: none;
     border-radius: 1em;
@@ -109,6 +109,11 @@ export default {
     }
     &:focus {
       outline: none;
+    }
+  }
+  @media all and (max-width: 350px) {
+    input {
+      max-width: 10em;
     }
   }
 }
