@@ -212,12 +212,17 @@ export default {
             // eslint-disable-next-line
             _id: document._id,
             title: document.title,
-            due: document.due,
+            due: moment(document.due),
           })
           console.log('Event added')
           trackEvent('User Interaction', 'Event Created')
           this.events.sort((a, b) => {
-            // console.log(a.due.diff(b.due));
+            /*
+              Array.prototype.sort() orders elements by a compare value
+              moment.diff() returns the difference between two moment objects in milliseconds
+              if the compare value > 0, a comes first
+              if the compare value < 0, b comes first
+            */
             return a.due.diff(b.due)
           })
           console.log('Events sorted')
