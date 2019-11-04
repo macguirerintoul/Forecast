@@ -20,7 +20,7 @@
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-service": "^3.8.4",
     "babel-eslint": "^10.0.1",
-    "electron": "^5.0.1",
+    "electron": "^7.0.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^5.0.0",
