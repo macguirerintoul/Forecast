@@ -9,11 +9,8 @@
   },
   "license": "CC BY-NC-SA 4.0",
   "scripts": {
-    "build": "vue-cli-service electron:build -mw",
     "serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps",
-    "dist": "electron-builder",
     "test": "electron-builder"
   },
   "dependencies": {

@@ -3,7 +3,9 @@ module.exports = {
     "plugin:vue/recommended",
     "eslint:recommended",
     "plugin:prettier/recommended",
-    "prettier/vue", "plugin:import/errors", " plugin:import/warnings"
+    "prettier/vue",
+    "plugin:import/errors",
+    "plugin:import/warnings"
   ],
   "rules": {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
