@@ -8,7 +8,8 @@ jobs:
     - os: linux
       dist: bionic # use Ubuntu Bionic (18.04)
     - os: osx
-    - os: windows
+      script:
+        - npm test -- --mac --win # test for both windows and mac using macos
 branches:
   only:
     - master
