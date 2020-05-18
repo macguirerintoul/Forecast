@@ -3,6 +3,12 @@
   "name": "forecast-app",
   "version": "1.0.4",
   "description": "A desktop app to keep track of upcoming tasks.",
+  "build": {
+    "appId": "me.macguire.forecast",
+    "mac": {
+      "category": "public.app-category.productivity"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mrintoul/Forecast.git"
@@ -12,7 +18,9 @@
     "build": "vue-cli-service electron:build -mw",
     "serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "postuninstall": "electron-builder install-app-deps",
+    "dist": "electron-builder",
+    "test": "electron-builder"
   },
   "dependencies": {
     "compare-versions": "^3.5.0",
@@ -31,6 +39,7 @@
     "@vue/cli-service": "^3.12.1",
     "babel-eslint": "^10.0.1",
     "electron": "^5.0.1",
+    "electron-builder": "^22.6.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^5.0.0",
     "eslint-plugin-import": "^2.18.0",
@@ -52,6 +61,6 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "main": "background.js",
+  "main": "src/background.js",
   "productName": "Forecast"
 }

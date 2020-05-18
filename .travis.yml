@@ -6,8 +6,7 @@ notifications:
 jobs:
   include:
   - os: linux
-    dist: xenial
-    sudo: required
+    dist: bionic # use Ubuntu Bionic (18.04)
   - os: osx
 branches:
   only:
