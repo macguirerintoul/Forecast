@@ -1,5 +1,8 @@
 appId: me.macguire.forecast
 mac:
   category: public.app-category.productivity
+  gatekeeperAssess: false
 linux:
   category: ProjectManagement
+win:
+  target: nsis
