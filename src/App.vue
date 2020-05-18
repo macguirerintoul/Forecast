@@ -62,9 +62,6 @@
               >Macguire Rintoul</a
             >
           </h6>
-          <h6>
-            Forecast tracks anonymized usage data for analytics purposes only.
-          </h6>
         </div>
       </div>
     </swipe-list>
@@ -87,7 +84,6 @@ const currentVersion = require('electron').remote.app.getVersion()
 const compareVersions = require('compare-versions')
 
 const db = new Datastore({ filename: 'forecast.db', autoload: true })
-const { trackEvent, trackPageview } = require('./analytics')
 
 export default {
   name: 'App',
@@ -137,7 +133,6 @@ export default {
 
     await this.clearBlankEvents()
     this.getEvents()
-    trackPageview('/events', 'Events')
   },
   methods: {
     openURL(url, event) {
@@ -215,7 +210,6 @@ export default {
             due: moment(document.due),
           })
           console.log('Event added')
-          trackEvent('User Interaction', 'Event Created')
           this.events.sort((a, b) => {
             /*
               Array.prototype.sort() orders elements by a compare value
@@ -236,7 +230,6 @@ export default {
       console.log(index)
       db.remove({ _id: id }, () => {
         this.events.splice(index, 1)
-        trackEvent('User Interaction', 'Event Removed')
       })
     },
   },
