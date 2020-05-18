@@ -3,12 +3,6 @@
   "name": "forecast-app",
   "version": "1.0.4",
   "description": "A desktop app to keep track of upcoming tasks.",
-  "build": {
-    "appId": "me.macguire.forecast",
-    "mac": {
-      "category": "public.app-category.productivity"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mrintoul/Forecast.git"
