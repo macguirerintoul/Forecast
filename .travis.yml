@@ -1,56 +1,14 @@
-language: node_js
-
+language: node_js # set Travis language
 node_js:
-  - '11.6.0'
-
-# Always run two parallel builds: one on mac and one on linux
-# the linux build will use wine to be able to build windows and
-# linux apps
-matrix:
-  include:
-    - os: osx
-      osx_image: xcode10.2
-      language: node_js
-      node_js: "11.6.0"
-      env:
-        - ELECTRON_CACHE=$HOME/.cache/electron
-        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-
-    - os: linux
-      dist: trusty
-      sudo: required
-      services: docker
-      language: generic
-
+  - lts/* # use latest LTS node release
 notifications:
   email: false
-
-# cache some files for faster builds
-cache:
-  directories:
-    - node_modules
-    - $HOME/.cache/electron
-    - $HOME/.cache/electron-builder
-
-# on PRs and merges to master and prod run tests and build the app
-script:
-  - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --rm \
-        -v ${PWD}:/project \
-        -v ~/.cache/electron:/root/.cache/electron \
-        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-        electronuserland/builder:wine \
-        /bin/bash -c "npm i && npm run test"
-    else
-      npm run test
-    fi
-    
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
-
-# only run this script on pull requests and merges into 
-# the 'master' and 'dev' branches
+jobs:
+  include:
+  - os: linux
+    dist: xenial
+    sudo: required
+  - os: osx
 branches:
   only:
   - master
