@@ -5,10 +5,11 @@ notifications:
   email: false
 jobs:
   include:
-  - os: linux
-    dist: bionic # use Ubuntu Bionic (18.04)
-  - os: osx
+    - os: linux
+      dist: bionic # use Ubuntu Bionic (18.04)
+    - os: osx
+    - os: windows
 branches:
   only:
-  - master
-  - dev
+    - master
+    - dev
