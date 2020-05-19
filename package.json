@@ -11,7 +11,9 @@
   "scripts": {
     "serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "test": "electron-builder"
+    "test": "electron-builder",
+    "lint": "eslint --ext .js,.vue src",
+    "fix": "eslint --ext .js,.vue src --fix"
   },
   "dependencies": {
     "compare-versions": "^3.5.0",
