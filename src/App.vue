@@ -246,13 +246,15 @@ export default {
 }
 
 html {
-  --background: #FFF;
-  --foreground:#000;
+	--background: var(--light);
+	--foreground: var(--dark);
 }
 
 html[data-theme='dark'] {
-	--background: #000;
-	--foreground: #FFF;
+	--background: var(--dark);
+	--foreground: var(--light);
+	--light-grey: var(--dark-grey);
+	--dark-grey: var(--light-grey);
 }
 
 html,
