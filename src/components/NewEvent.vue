@@ -54,6 +54,7 @@ export default {
 						? moment(this.date)
 						: moment(`${this.date} ${this.time}`);
 				this.$parent.addEvent(this.title, due);
+				// Clear the form so the user can add another event
 				this.title = "";
 				this.date = "";
 				this.time = "";
@@ -76,6 +77,7 @@ export default {
 		color: $placeholder;
 		border-width: 2px;
 		border-color: $placeholder;
+		border-style: solid;
 		font-size: 1em;
 		font-weight: 700;
 		padding: 0.5em 1em;
