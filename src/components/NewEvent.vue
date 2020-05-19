@@ -77,6 +77,7 @@ export default {
 		color: $placeholder;
 		border-width: 2px;
 		border-color: $placeholder;
+		// Default is 'outset' which causes the bevel effect
 		border-style: solid;
 		font-size: 1em;
 		font-weight: 700;
