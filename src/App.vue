@@ -237,12 +237,30 @@ export default {
 </script>
 
 <style lang="scss">
+:root {
+	--font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	--light: #FFF;
+	--light-grey: #eee;
+	--dark-grey: #aaa;
+	--dark: #000;
+}
+
+html {
+  --background: #FFF;
+  --foreground:#000;
+}
+
+html[data-theme='dark'] {
+	--background: #000;
+	--foreground: #FFF;
+}
+
 html,
 body {
 	margin: 0;
 	min-height: 100%;
 	box-sizing: border-box;
-	background-color: $bg-light;
+	background-color: var(--background);
 }
 #title-bar {
 	display: flex;
@@ -252,10 +270,10 @@ body {
 	width: 100%;
 	z-index: 10;
 	-webkit-app-region: drag;
-	background-color: $bg-light;
+	background-color: var(--background);
 	height: 2.2em;
 	text-align: center;
-	border-bottom: 1px solid $light-grey;
+	border-bottom: 1px solid var(--light-grey);
 	span {
 		margin: auto;
 		font-size: 10pt;
@@ -265,11 +283,10 @@ body {
 	display: none;
 }
 #app {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-		Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-family: var(--font-stack);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	color: $el-dark;
+	color: var(--foreground);
 	height: 114vh;
 	padding-top: 2em;
 	h1,
@@ -282,7 +299,7 @@ body {
 	#links {
 		text-align: center;
 		a {
-			color: $el-dark;
+			color: var(--foreground);
 		}
 		h6 {
 			font-weight: 300;
@@ -317,12 +334,12 @@ body {
     Below is custom CSS for vue-swipe-actions.
   */
 .swipeout {
-	border-bottom: 1px solid $light-grey;
+	border-bottom: 1px solid var(--light-grey);
 	&:first-of-type {
-		border-top: 1px solid $light-grey;
+		border-top: 1px solid var(--light-grey);
 	}
 	.swipeout-action {
-		background-color: $light-grey;
+		background-color: var(--light-grey);
 		padding: 0 1em;
 		img {
 			position: relative;

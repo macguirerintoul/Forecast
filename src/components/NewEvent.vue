@@ -74,9 +74,9 @@ export default {
 	button {
 		background: none;
 		border-radius: 1em;
-		color: $placeholder;
+		color: var(--dark-grey);
 		border-width: 2px;
-		border-color: $placeholder;
+		border-color: var(--dark-grey);
 		// Default is 'outset' which causes the bevel effect
 		border-style: solid;
 		font-size: 1em;
@@ -95,20 +95,20 @@ export default {
 		font-size: 1.2em;
 		&,
 		&::placeholder {
-			color: $placeholder;
-			font-family: $font-stack;
+			color: var(--dark-grey);
+			font-family: var(--font-stack);
 		}
 		&[type="text"] {
-			color: $el-dark;
+			color: var(--foreground);
 		}
 		&[type="date"] {
-			color: $placeholder;
+			color: var(--dark-grey);
 		}
 		&[type="date"]:focus,
 		&[type="date"]:valid,
 		&[type="time"]:focus,
 		&[type="time"]:valid {
-			color: $el-dark;
+			color: var(--foreground);
 		}
 		&:focus {
 			outline: none;
