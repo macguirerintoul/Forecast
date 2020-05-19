@@ -1,7 +1,7 @@
 {
   "author": "Macguire Rintoul (https://macguire.me)",
   "name": "forecast-app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A desktop app to keep track of upcoming tasks.",
   "repository": {
     "type": "git",
