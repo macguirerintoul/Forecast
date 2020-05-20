@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .event {
 	padding: 2em 2em;
 	display: flex;

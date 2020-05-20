@@ -241,21 +241,22 @@ export default {
 	--font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
 		Arial, sans-serif;
 	--light: #fff;
-	--light-grey: #eee;
-	--dark-grey: #aaa;
+	--lightgrey: #eeeeee;
+	--darkgrey: #222;
+	--placeholder: #aaa;
 	--dark: #000;
 }
 
 html {
 	--background: var(--light);
 	--foreground: var(--dark);
+	--grey: var(--lightgrey);
 }
 
 html[data-theme="dark"] {
 	--background: var(--dark);
 	--foreground: var(--light);
-	--light-grey: var(--dark-grey);
-	--dark-grey: var(--light-grey);
+	--grey: var(--darkgrey);
 }
 
 html,
@@ -276,12 +277,13 @@ body {
 	background-color: var(--background);
 	height: 2.2em;
 	text-align: center;
-	border-bottom: 1px solid var(--light-grey);
+	border-bottom: 1px solid var(--grey);
 	span {
 		margin: auto;
 		font-size: 10pt;
 	}
 }
+
 #title-bar.windows {
 	display: none;
 }
@@ -337,14 +339,15 @@ body {
    Custom CSS for vue-swipe-actions
   */
 .swipeout {
-	border-bottom: 1px solid var(--light-grey);
+	border-bottom: 1px solid var(--grey);
 	&:first-of-type {
-		border-top: 1px solid var(--light-grey);
+		border-top: 1px solid var(--grey);
 	}
 	.swipeout-action {
-		background-color: var(--light-grey);
+		background-color: var(--grey);
 		padding: 0 1em;
 		img {
+			filter: invert(1);
 			position: relative;
 			top: 50%;
 			left: 50%;

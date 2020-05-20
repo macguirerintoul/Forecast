@@ -1,13 +1,9 @@
-const path = require("path");
-
 // ignoring because it should not be in dependencies
 // eslint-disable-next-line
 import {
 	createProtocol,
 	installVueDevtools,
 } from "vue-cli-plugin-electron-builder/lib";
-var LocalStorage = require('node-localstorage').LocalStorage;
-let localStorage = new LocalStorage('./scratch');
 // ignoring because it should not be in dependencies
 // eslint-disable-next-line
 const { app, protocol, BrowserWindow, shell, nativeTheme, webContents } = require('electron')
@@ -56,8 +52,10 @@ function createWindow() {
 function setOSTheme() {
 	let theme = nativeTheme.shouldUseDarkColors ? "dark" : "light";
 	console.log("Setting OS theme: ", theme);
-	window.webContents.executeJavaScript('localStorage.setItem("osTheme", "' + theme + '");')
-	window.webContents.executeJavaScript('window.__setTheme()')
+	window.webContents.executeJavaScript(
+		'localStorage.setItem("osTheme", "' + theme + '");'
+	);
+	window.webContents.executeJavaScript("window.__setTheme()");
 }
 
 nativeTheme.on("updated", () => {

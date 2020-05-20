@@ -67,9 +67,9 @@ export default {
 	button {
 		background: none;
 		border-radius: 1em;
-		color: var(--dark-grey);
+		color: var(--placeholder);
 		border-width: 2px;
-		border-color: var(--dark-grey);
+		border-color: var(--placeholder);
 		// Default is 'outset' which causes the bevel effect
 		border-style: solid;
 		font-size: 1em;
@@ -77,8 +77,9 @@ export default {
 		padding: 0.5em 1em;
 		&:focus {
 			outline: none;
-			background: #fff;
-			color: #0000ff;
+			background: #00f;
+			color: var(--light); // the blue is pretty dark, so always use light text
+			border-color: #00f;
 		}
 	}
 	input {
@@ -88,14 +89,14 @@ export default {
 		font-size: 1.2em;
 		&,
 		&::placeholder {
-			color: var(--dark-grey);
+			color: var(--placeholder);
 			font-family: var(--font-stack);
 		}
 		&[type="text"] {
 			color: var(--foreground);
 		}
 		&[type="date"] {
-			color: var(--dark-grey);
+			color: var(--placeholder);
 		}
 		&[type="date"]:focus,
 		&[type="date"]:valid,
