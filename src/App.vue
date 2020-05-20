@@ -11,7 +11,7 @@
 			:items="events"
 			transition-key="_id"
 		>
-			<template v-slot="{ item, index, revealLeft, revealRight, close }">
+			<template v-slot="{ item, index }">
 				<Event
 					:id="item._id"
 					:key="item._id"
@@ -91,12 +91,12 @@ export default {
 		Event,
 		NewEvent,
 		// SwipeOut,
-		SwipeList
+		SwipeList,
 	},
 	data() {
 		return {
 			events: [],
-			os: os.platform()
+			os: os.platform(),
 		};
 	},
 	async mounted() {
@@ -114,8 +114,8 @@ export default {
 
 		// check for updates and notify if a newer version has been uploaded to GitHub
 		fetch("https://api.github.com/repos/mrintoul/forecast/releases/latest")
-			.then(response => response.json())
-			.then(data => {
+			.then((response) => response.json())
+			.then((data) => {
 				// gets latest version from GitHub by taking it from latest release tag name
 				if (compareVersions(data.name.substr(1), currentVersion) > 0) {
 					console.log("Newer version available");
@@ -123,13 +123,13 @@ export default {
 						group: "forecast",
 						type: "success",
 						title: "Newer version available!",
-						text: "Visit the website (linked above) to get it."
+						text: "Visit the website (linked above) to get it.",
 					});
 				} else {
 					console.log("Installed version is up to date");
 				}
 			})
-			.catch(error => console.error(error));
+			.catch((error) => console.error(error));
 
 		await this.clearBlankEvents();
 		this.getEvents();
@@ -147,10 +147,10 @@ export default {
         going wrong in the creation method.
       */
 			db.loadDatabase();
-			return new Promise(resolve => {
+			return new Promise((resolve) => {
 				db.find({}).exec((error, docs) => {
 					let itemsProcessed = 0;
-					docs.forEach(event => {
+					docs.forEach((event) => {
 						if (event.title === "") {
 							console.log("empty title");
 							// eslint-disable-next-line
@@ -173,7 +173,7 @@ export default {
 				.sort({ due: 1 })
 				.exec((err, docs) => {
 					this.events = docs;
-					this.events.forEach(object => {
+					this.events.forEach((object) => {
 						// Due dates are stored in database as strings, so convert them back into Moment objects
 						// eslint-disable-next-line
             object.due = moment(object.due)
@@ -199,7 +199,7 @@ export default {
 			db.insert(
 				{
 					title,
-					due
+					due,
 				},
 				(error, document) => {
 					console.log(document);
@@ -207,7 +207,7 @@ export default {
 						// eslint-disable-next-line
             _id: document._id,
 						title: document.title,
-						due: moment(document.due)
+						due: moment(document.due),
 					});
 					console.log("Event added");
 					this.events.sort((a, b) => {
@@ -231,15 +231,16 @@ export default {
 			db.remove({ _id: id }, () => {
 				this.events.splice(index, 1);
 			});
-		}
-	}
+		},
+	},
 };
 </script>
 
 <style lang="scss">
 :root {
-	--font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-	--light: #FFF;
+	--font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+		Arial, sans-serif;
+	--light: #fff;
 	--light-grey: #eee;
 	--dark-grey: #aaa;
 	--dark: #000;
@@ -250,7 +251,7 @@ html {
 	--foreground: var(--dark);
 }
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
 	--background: var(--dark);
 	--foreground: var(--light);
 	--light-grey: var(--dark-grey);

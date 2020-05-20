@@ -1,52 +1,69 @@
+const path = require("path");
+
 // ignoring because it should not be in dependencies
 // eslint-disable-next-line
 import {
 	createProtocol,
-	installVueDevtools
+	installVueDevtools,
 } from "vue-cli-plugin-electron-builder/lib";
-
+var LocalStorage = require('node-localstorage').LocalStorage;
+let localStorage = new LocalStorage('./scratch');
 // ignoring because it should not be in dependencies
 // eslint-disable-next-line
-const { app, protocol, BrowserWindow, shell } = require('electron')
+const { app, protocol, BrowserWindow, shell, nativeTheme, webContents } = require('electron')
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win;
+let window;
 
 // Standard scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
-	{ scheme: "app", privileges: { secure: true, standard: true } }
+	{ scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
 function createWindow() {
+	console.log("createWindow()");
 	// Create the browser window.
-	win = new BrowserWindow({
+	window = new BrowserWindow({
 		width: 450,
 		height: 600,
 		titleBarStyle: "hiddenInset",
 		minWidth: 330,
 		webPreferences: {
-			nodeIntegration: true
-		}
+			nodeIntegration: true,
+			// preload: "./preload.js", // use a preload script
+		},
 	});
 
 	if (process.env.WEBPACK_DEV_SERVER_URL) {
 		// Load the url of the dev server if in development mode
-		win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+		window.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
 		// uncomment the following line to open dev tools automatically on launch
 		// if (!process.env.IS_TEST) win.webContents.openDevTools()
 	} else {
 		createProtocol("app");
 		// Load the index.html when not in development
-		win.loadURL("app://./index.html");
+		window.loadURL("app://./index.html");
 	}
 
-	win.on("closed", () => {
-		win = null;
+	window.on("closed", () => {
+		window = null;
 	});
 }
+
+function setOSTheme() {
+	let theme = nativeTheme.shouldUseDarkColors ? "dark" : "light";
+	console.log("Setting OS theme: ", theme);
+	window.webContents.executeJavaScript('localStorage.setItem("osTheme", "' + theme + '");')
+	window.webContents.executeJavaScript('window.__setTheme()')
+}
+
+nativeTheme.on("updated", () => {
+	console.log("native theme updated");
+	setOSTheme();
+});
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
@@ -60,7 +77,7 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
 	// On macOS it's common to re-create a window in the app when the
 	// dock icon is clicked and there are no other windows open.
-	if (win === null) {
+	if (window === null) {
 		createWindow();
 	}
 });
@@ -83,7 +100,7 @@ app.on("ready", async () => {
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
 	if (process.platform === "win32") {
-		process.on("message", data => {
+		process.on("message", (data) => {
 			if (data === "graceful-exit") {
 				app.quit();
 			}

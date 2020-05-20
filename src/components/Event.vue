@@ -17,11 +17,11 @@ export default {
 		id: { type: String, required: true },
 		index: { type: Number, required: true },
 		title: { type: String, required: true },
-		due: { type: Object, required: true }
+		due: { type: Object, required: true },
 	},
 	data() {
 		return {
-			currentTime: moment()
+			currentTime: moment(),
 		};
 	},
 	computed: {
@@ -43,7 +43,7 @@ export default {
 				this.currentTime.isBefore(moment(this.due))
 			);
 			return str.substring(str.indexOf(" ") + 1);
-		}
+		},
 	},
 	created() {
 		// Update the time remaining once a  minute
@@ -53,11 +53,11 @@ export default {
 			const difference = this.due.diff(this.currentTime, "minutes");
 			if (difference === 15 || difference === 60) {
 				new Notification("Forecast", {
-					body: this.title + " due in " + difference + " " + this.unit
+					body: this.title + " due in " + difference + " " + this.unit,
 				});
 			}
 		}, 60 * 1000);
-	}
+	},
 };
 </script>
 

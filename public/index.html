@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 
 <head>
   <meta charset="utf-8" />
@@ -7,6 +7,20 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
   <title>Forecast</title>
+  <script>
+    window.__setTheme = () => {
+      console.log("window.__setTheme")
+      let osTheme = localStorage.osTheme
+      let defaultTheme = 'light'
+
+      document.documentElement.setAttribute(
+        'data-theme',
+        osTheme || defaultTheme,
+      )
+    }
+
+    __setTheme()
+  </script>
 </head>
 
 <body>

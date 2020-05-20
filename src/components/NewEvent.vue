@@ -18,26 +18,19 @@ export default {
 		return {
 			title: "",
 			date: "",
-			time: ""
+			time: "",
 		};
 	},
 	methods: {
 		dateFocused() {
 			this.date =
 				this.date === ""
-					? moment()
-							.add(1, "days")
-							.format("YYYY-MM-DD")
-							.toString()
+					? moment().add(1, "days").format("YYYY-MM-DD").toString()
 					: this.date;
 		},
 		timeFocused() {
 			this.time =
-				this.time === ""
-					? moment()
-							.format("HH:mm")
-							.toString()
-					: this.time;
+				this.time === "" ? moment().format("HH:mm").toString() : this.time;
 		},
 		createEvent() {
 			console.log("Creating event - ", this.title);
@@ -45,7 +38,7 @@ export default {
 				this.$notify({
 					group: "forecast",
 					type: "error",
-					text: "Please enter a title and a date."
+					text: "Please enter a title and a date.",
 				});
 			} else {
 				// Check if time is empty to avoid adding a space
@@ -60,8 +53,8 @@ export default {
 				this.time = "";
 			}
 			this.$refs.title.focus();
-		}
-	}
+		},
+	},
 };
 </script>
 
