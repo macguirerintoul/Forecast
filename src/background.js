@@ -27,6 +27,7 @@ function createWindow() {
 		height: 600,
 		titleBarStyle: "hiddenInset",
 		minWidth: 330,
+		show: false, // wait until readyToShow event 
 		backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
 		webPreferences: {
 			nodeIntegration: true,
@@ -43,7 +44,10 @@ function createWindow() {
 		// Load the index.html when not in development
 		window.loadURL("app://./index.html");
 	}
-
+	// Prevents flash of white on dark mode
+	window.once('ready-to-show', () => {
+		window.show()
+	})
 	window.on("closed", () => {
 		window = null;
 	});
