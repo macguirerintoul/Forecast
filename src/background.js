@@ -23,16 +23,16 @@ function createWindow() {
 	console.log("createWindow()");
 	// Create the browser window.
 	window = new BrowserWindow({
-		width: 450,
+		width: 600,
 		height: 600,
 		titleBarStyle: "hiddenInset",
 		minWidth: 330,
+		backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
 		webPreferences: {
 			nodeIntegration: true,
-			// preload: "./preload.js", // use a preload script
 		},
 	});
-
+	setOSTheme();
 	if (process.env.WEBPACK_DEV_SERVER_URL) {
 		// Load the url of the dev server if in development mode
 		window.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
