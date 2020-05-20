@@ -334,7 +334,7 @@ body {
 	}
 }
 /*
-    Below is custom CSS for vue-swipe-actions.
+   Custom CSS for vue-swipe-actions
   */
 .swipeout {
 	border-bottom: 1px solid var(--light-grey);
