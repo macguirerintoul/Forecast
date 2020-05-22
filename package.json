@@ -23,12 +23,8 @@
     "vue-swipe-actions": "2.0.0-beta.12"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "4.3.1",
-    "@vue/cli-plugin-eslint": "4.3.1",
-    "@vue/cli-service": "4.3.1",
     "babel-eslint": "10.1.0",
-    "electron": "^8.0.0",
-    "electron-builder": "22.6.1",
+    "electron": "8.0.0",
     "eslint": "7.0.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-import": "2.20.2",
@@ -47,7 +43,6 @@
     "vue-template-compiler": "2.6.11"
   },
   "license": "MIT",
-  "productName": "Forecast",
   "repository": {
     "type": "git",
     "url": "https://github.com/mrintoul/Forecast.git"
