@@ -5,14 +5,13 @@
   "author": "Macguire Rintoul (https://macguire.me)",
   "scripts": {
     "serve": "vue-cli-service electron:serve",
-    "electron:build": "vue-cli-service electron:build",
-    "electron:serve": "vue-cli-service electron:serve",
+    "build": "vue-cli-service electron:build",
     "fix": "npm run lint:js -- --fix && npm run lint:css -- fix",
     "lint:css": "stylelint '**/*.{css,scss,vue}'",
     "lint:js": "eslint --ext .js,.vue .",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "test": "electron-builder"
+    "test": "npm run build"
   },
   "main": "background.js",
   "dependencies": {
@@ -21,7 +20,7 @@
     "nedb": "^1.8.0",
     "vue": "^2.5.22",
     "vue-notification": "^1.3.16",
-    "vue-swipe-actions": "^2.0.0-beta.12"
+    "vue-swipe-actions": "2.0.0-beta.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.3.1",
