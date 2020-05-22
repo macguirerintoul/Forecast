@@ -118,7 +118,7 @@ export default {
 			.then((data) => {
 				// gets latest version from GitHub by taking it from latest release tag name
 				if (compareVersions(data.name.substr(1), currentVersion) > 0) {
-					console.log("Newer version available");
+					// console.log("Newer version available");
 					this.$notify({
 						group: "forecast",
 						type: "success",
@@ -126,7 +126,7 @@ export default {
 						text: "Visit the website (linked above) to get it.",
 					});
 				} else {
-					console.log("Installed version is up to date");
+					// console.log("Installed version is up to date");
 				}
 			})
 			.catch((error) => console.error(error));
@@ -152,10 +152,10 @@ export default {
 					let itemsProcessed = 0;
 					docs.forEach((event) => {
 						if (event.title === "") {
-							console.log("empty title");
+							// console.log("empty title");
 							// eslint-disable-next-line
               db.remove({ _id: event._id }, {}, (err, numberRemoved) => {
-								console.log(err, numberRemoved);
+								// console.log(err, numberRemoved);
 							});
 						}
 						itemsProcessed += 1;
@@ -167,7 +167,7 @@ export default {
 			});
 		},
 		getEvents() {
-			console.log("getEvents - App");
+			// console.log("getEvents - App");
 			db.loadDatabase();
 			db.find({})
 				.sort({ due: 1 })
@@ -190,7 +190,7 @@ export default {
 			}
 		},
 		clearEvents() {
-			console.log("clearEvents - App");
+			// console.log("clearEvents - App");
 			db.remove({}, { multi: true }, () => {
 				this.events = [];
 			});
@@ -202,14 +202,14 @@ export default {
 					due,
 				},
 				(error, document) => {
-					console.log(document);
+					// console.log(document);
 					this.events.push({
 						// eslint-disable-next-line
             _id: document._id,
 						title: document.title,
 						due: moment(document.due),
 					});
-					console.log("Event added");
+					// console.log("Event added");
 					this.events.sort((a, b) => {
 						/*
               Array.prototype.sort() orders elements by a compare value
@@ -219,15 +219,15 @@ export default {
             */
 						return a.due.diff(b.due);
 					});
-					console.log("Events sorted");
+					// console.log("Events sorted");
 				}
 			);
 		},
 		removeEvent(id) {
-			console.log("Removing event ", id);
+			// console.log("Removing event ", id);
 			// eslint-disable-next-line
       const index = this.events.findIndex(object => object._id == id)
-			console.log(index);
+			// console.log(index);
 			db.remove({ _id: id }, () => {
 				this.events.splice(index, 1);
 			});

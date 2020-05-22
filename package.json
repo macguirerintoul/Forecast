@@ -1,21 +1,20 @@
 {
-  "author": "Macguire Rintoul (https://macguire.me)",
   "name": "forecast-app",
   "version": "1.0.5",
   "description": "A desktop app to keep track of upcoming tasks.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mrintoul/Forecast.git"
-  },
-  "license": "CC BY-NC-SA 4.0",
+  "author": "Macguire Rintoul (https://macguire.me)",
   "scripts": {
     "serve": "vue-cli-service electron:serve",
-    "postinstall": "electron-builder install-app-deps",
-    "test": "electron-builder",
-    "lint:js": "eslint --ext .js,.vue .",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "fix": "npm run lint:js -- --fix && npm run lint:css -- fix",
     "lint:css": "stylelint '**/*.{css,scss,vue}'",
-    "fix": "npm run lint:js -- --fix && npm run lint:css -- fix"
+    "lint:js": "eslint --ext .js,.vue .",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps",
+    "test": "electron-builder"
   },
+  "main": "background.js",
   "dependencies": {
     "compare-versions": "^3.5.0",
     "moment": "^2.24.0",
@@ -29,7 +28,7 @@
     "@vue/cli-plugin-eslint": "4.3.1",
     "@vue/cli-service": "4.3.1",
     "babel-eslint": "10.1.0",
-    "electron": "8.3.0",
+    "electron": "^8.0.0",
     "electron-builder": "22.6.1",
     "eslint": "7.0.0",
     "eslint-config-prettier": "6.11.0",
@@ -45,9 +44,13 @@
     "stylelint-config-standard": "20.0.0",
     "stylelint-order": "4.0.0",
     "stylelint-scss": "3.17.2",
-    "vue-cli-plugin-electron-builder": "1.4.6",
+    "vue-cli-plugin-electron-builder": "~1.4.6",
     "vue-template-compiler": "2.6.11"
   },
-  "main": "src/background.js",
-  "productName": "Forecast"
+  "license": "MIT",
+  "productName": "Forecast",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrintoul/Forecast.git"
+  }
 }

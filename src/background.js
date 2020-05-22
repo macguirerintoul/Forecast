@@ -20,14 +20,14 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 function createWindow() {
-	console.log("createWindow()");
+	// console.log("createWindow()");
 	// Create the browser window.
 	window = new BrowserWindow({
 		width: 600,
 		height: 600,
 		titleBarStyle: "hiddenInset",
 		minWidth: 330,
-		show: false, // wait until readyToShow event 
+		show: false, // wait until readyToShow event
 		backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
 		webPreferences: {
 			nodeIntegration: true,
@@ -45,9 +45,9 @@ function createWindow() {
 		window.loadURL("app://./index.html");
 	}
 	// Prevents flash of white on dark mode
-	window.once('ready-to-show', () => {
-		window.show()
-	})
+	window.once("ready-to-show", () => {
+		window.show();
+	});
 	window.on("closed", () => {
 		window = null;
 	});
@@ -55,7 +55,7 @@ function createWindow() {
 
 function setOSTheme() {
 	let theme = nativeTheme.shouldUseDarkColors ? "dark" : "light";
-	console.log("Setting OS theme: ", theme);
+	// console.log("Setting OS theme: ", theme);
 	window.webContents.executeJavaScript(
 		'localStorage.setItem("osTheme", "' + theme + '");'
 	);
@@ -63,7 +63,7 @@ function setOSTheme() {
 }
 
 nativeTheme.on("updated", () => {
-	console.log("native theme updated");
+	// console.log("native theme updated");
 	setOSTheme();
 });
 

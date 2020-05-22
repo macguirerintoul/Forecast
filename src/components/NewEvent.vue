@@ -1,7 +1,13 @@
 <template>
 	<div id="new-event" @keypress.enter="createEvent">
 		<div class="input-container">
-			<input ref="title" v-model="title" type="text" placeholder="New Event" required />
+			<input
+				ref="title"
+				v-model="title"
+				type="text"
+				placeholder="New Event"
+				required
+			/>
 			<input v-model="date" type="date" required @focus="dateFocused()" />
 			<input v-model="time" type="time" @focus="timeFocused()" />
 		</div>
@@ -33,7 +39,7 @@ export default {
 				this.time === "" ? moment().format("HH:mm").toString() : this.time;
 		},
 		createEvent() {
-			console.log("Creating event - ", this.title);
+			// console.log("Creating event - ", this.title);
 			if (this.title === "" || this.date === "") {
 				this.$notify({
 					group: "forecast",
@@ -65,8 +71,12 @@ export default {
 	justify-content: space-between;
 }
 @media all and (max-width: 640px) {
-	input {	max-width: auto;}
-.input-container{ flex-direction: column;}
+	input {
+		max-width: auto;
+	}
+	.input-container {
+		flex-direction: column;
+	}
 }
 #new-event {
 	display: flex;
