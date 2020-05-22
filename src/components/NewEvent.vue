@@ -1,9 +1,9 @@
 <template>
 	<div id="new-event" @keypress.enter="createEvent">
-		<div>
-			<input ref="title" v-model="title" type="text" placeholder="New Event" />
+		<div class="input-container">
+			<input ref="title" v-model="title" type="text" placeholder="New Event" required />
 			<input v-model="date" type="date" required @focus="dateFocused()" />
-			<input v-model="time" type="time" required @focus="timeFocused()" />
+			<input v-model="time" type="time" @focus="timeFocused()" />
 		</div>
 		<button @keypress.prevent @click="createEvent">Create</button>
 	</div>
@@ -59,6 +59,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.input-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+@media all and (max-width: 640px) {
+	input {	max-width: auto;}
+.input-container{ flex-direction: column;}
+}
 #new-event {
 	display: flex;
 	align-items: center;
@@ -87,6 +96,7 @@ export default {
 		border: none;
 		height: 1.2em;
 		font-size: 1.2em;
+		max-width: 11rem;
 		&,
 		&::placeholder {
 			color: var(--placeholder);
@@ -97,11 +107,11 @@ export default {
 		}
 		&[type="date"] {
 			color: var(--placeholder);
+			padding-right: 1rem;
 		}
 		&[type="date"]:focus,
 		&[type="date"]:valid,
-		&[type="time"]:focus,
-		&[type="time"]:valid {
+		&[type="time"]:focus {
 			color: var(--foreground);
 		}
 		&:focus {
