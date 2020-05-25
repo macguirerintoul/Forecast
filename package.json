@@ -3,6 +3,8 @@
   "version": "1.0.5",
   "description": "A desktop app to keep track of upcoming tasks.",
   "author": "Macguire Rintoul (https://macguire.me)",
+  "homepage": "https://forecast.macguire.me",
+  "bugs": "https://github.com/macguirerintoul/Forecast/issues",
   "scripts": {
     "serve": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build",

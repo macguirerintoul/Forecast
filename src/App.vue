@@ -100,6 +100,7 @@ export default {
 		};
 	},
 	async mounted() {
+		this.sendUpdateNotification()
 		// For some reason, this must happen first or it doesn't work
 		const rect = document
 			.getElementById("events-container")
@@ -118,25 +119,18 @@ export default {
 			.then((data) => {
 				// gets latest version from GitHub by taking it from latest release tag name
 				if (compareVersions(data.name.substr(1), currentVersion) > 0) {
-					// console.log("Newer version available");
-					this.$notify({
-						group: "forecast",
-						type: "success",
-						title: "Newer version available!",
-						text: "Visit the website (linked above) to get it.",
-					});
-				} else {
-					// console.log("Installed version is up to date");
+					this.sendUpdateNotification()
 				}
 			})
 			.catch((error) => console.error(error));
-
 		await this.clearBlankEvents();
 		this.getEvents();
 	},
 	methods: {
 		openURL(url, event) {
-			event.preventDefault();
+			if (event) {
+				event.preventDefault();
+			}
 			shell.openExternal(url);
 		},
 		clearBlankEvents() {
@@ -165,6 +159,14 @@ export default {
 					});
 				});
 			});
+		},
+		sendUpdateNotification() {
+			let updateNotification = new Notification('Forecast', {
+				body: 'Newer version available! Click here to get it.'
+			})
+			updateNotification.onclick = () => {
+				this.openURL("https://forecast.macguire.me/download")
+			}
 		},
 		getEvents() {
 			// console.log("getEvents - App");
@@ -257,6 +259,11 @@ html[data-theme="dark"] {
 	--background: var(--dark);
 	--foreground: var(--light);
 	--grey: var(--darkgrey);
+	.swipeout-action {
+		img {
+			filter: invert(1);
+		}
+	}
 }
 
 html,
@@ -347,7 +354,6 @@ body {
 		background-color: var(--grey);
 		padding: 0 1em;
 		img {
-			filter: invert(1);
 			position: relative;
 			top: 50%;
 			left: 50%;
