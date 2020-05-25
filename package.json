@@ -13,7 +13,7 @@
     "lint:js": "eslint --ext .js,.vue .",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "test": "npm run build"
+    "test": "vue-cli-service electron:build"
   },
   "main": "background.js",
   "dependencies": {
