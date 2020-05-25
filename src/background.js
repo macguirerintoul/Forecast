@@ -55,7 +55,6 @@ function createWindow() {
 
 function setOSTheme() {
 	let theme = nativeTheme.shouldUseDarkColors ? "dark" : "light";
-	// console.log("Setting OS theme: ", theme);
 	window.webContents.executeJavaScript(
 		'localStorage.setItem("osTheme", "' + theme + '");'
 	);
@@ -63,7 +62,6 @@ function setOSTheme() {
 }
 
 nativeTheme.on("updated", () => {
-	// console.log("native theme updated");
 	setOSTheme();
 });
 

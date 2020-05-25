@@ -9,16 +9,13 @@
   <title>Forecast</title>
   <script>
     window.__setTheme = () => {
-      // console.log("window.__setTheme")
       let osTheme = localStorage.osTheme
       let defaultTheme = 'light'
-
       document.documentElement.setAttribute(
         'data-theme',
         osTheme || defaultTheme,
       )
     }
-
     __setTheme()
   </script>
 </head>
