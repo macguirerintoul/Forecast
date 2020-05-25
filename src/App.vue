@@ -90,7 +90,6 @@ export default {
 	components: {
 		Event,
 		NewEvent,
-		// SwipeOut,
 		SwipeList,
 	},
 	data() {
@@ -100,7 +99,6 @@ export default {
 		};
 	},
 	async mounted() {
-		this.sendUpdateNotification()
 		// For some reason, this must happen first or it doesn't work
 		const rect = document
 			.getElementById("events-container")
