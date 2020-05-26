@@ -37,7 +37,7 @@
     "node-sass": "4.14.1",
     "prettier": "2.0.5",
     "sass-loader": "8.0.2",
-    "spectron": "^11.0.0",
+    "spectron": "11.0.0",
     "stylelint": "13.5.0",
     "stylelint-a11y": "1.2.3",
     "stylelint-config-sass-guidelines": "7.0.0",
