@@ -21,7 +21,7 @@ When you add an item to your Forecast, you give it a title and a date. Then, For
 
 ## Demo
 
-You can try it out for yourself at [forecast.macguire.me](https://forecast.macguire.me/download).
+[![Demo](https://res.cloudinary.com/macguire/video/upload/q_auto/v1590461627/Forecast/videos/demo2.gif)](https://res.cloudinary.com/macguire/video/upload/q_auto/v1590461627/Forecast/videos/demo2.gif "Demo")
 
 ## Where can I get it?
 
