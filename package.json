@@ -1,5 +1,6 @@
 {
-  "name": "Forecast",
+  "name": "forecast",
+  "productName": "Forecast",
   "version": "1.0.5",
   "description": "A desktop app to keep track of upcoming tasks.",
   "author": "Macguire Rintoul (https://macguire.me)",

@@ -6,7 +6,7 @@ import {
 } from "vue-cli-plugin-electron-builder/lib";
 // ignoring because it should not be in dependencies
 // eslint-disable-next-line
-const { app, protocol, BrowserWindow, shell, nativeTheme, webContents } = require('electron')
+const { app, protocol, BrowserWindow, shell, nativeTheme, webContents, Menu } = require('electron')
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -23,11 +23,12 @@ function createWindow() {
 	// console.log("createWindow()");
 	// Create the browser window.
 	window = new BrowserWindow({
-		width: 600,
+		width: 400,
 		height: 600,
 		titleBarStyle: "hiddenInset",
+		autoHideMenuBar: true, // hide the menu bar by default on Windows
 		minWidth: 330,
-		show: false, // wait until readyToShow event
+		show: false, // wait until readyToShow event is fired to show the window
 		backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
 		webPreferences: {
 			// in vue.config.js
@@ -112,3 +113,112 @@ if (isDevelopment) {
 		});
 	}
 }
+
+/*                         
+  #    # ###### #    # #    # 
+  ##  ## #      ##   # #    # 
+  # ## # #####  # #  # #    # 
+  #    # #      #  # # #    # 
+  #    # #      #   ## #    # 
+  #    # ###### #    #  ####  
+*/
+
+const template = [
+  // { role: 'appMenu' }
+  ...(process.platform === "darwin" ? [{
+		// "Electron" in dev, should be replaced by package.json.productName by electron-builder
+    label: app.name, 
+    submenu: [
+      { role: 'about' },
+      { type: 'separator' },
+      { role: 'services' },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideothers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  }] : []),
+  // { role: 'fileMenu' }
+  {
+    label: 'File',
+    submenu: [
+      process.platform === "darwin" ? { role: 'close' } : { role: 'quit' }
+    ]
+  },
+  // { role: 'editMenu' }
+  {
+    label: 'Edit',
+    submenu: [
+      { role: 'undo' },
+      { role: 'redo' },
+      { type: 'separator' },
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' },
+      ...(process.platform === "darwin" ? [
+        { role: 'pasteAndMatchStyle' },
+        { role: 'delete' },
+        { role: 'selectAll' },
+        { type: 'separator' },
+        {
+          label: 'Speech',
+          submenu: [
+            { role: 'startspeaking' },
+            { role: 'stopspeaking' }
+          ]
+        }
+      ] : [
+        { role: 'delete' },
+        { type: 'separator' },
+        { role: 'selectAll' }
+      ])
+    ]
+  },
+  // { role: 'viewMenu' }
+  {
+    label: 'View',
+    submenu: [
+      { role: 'reload' },
+      { role: 'forcereload' },
+      { role: 'toggledevtools' },
+      { type: 'separator' },
+      { role: 'resetzoom' },
+      { role: 'zoomin' },
+      { role: 'zoomout' },
+      { type: 'separator' },
+      { role: 'togglefullscreen' }
+    ]
+  },
+  // { role: 'windowMenu' }
+  {
+    label: 'Window',
+    submenu: [
+      { role: 'minimize' },
+      { role: 'zoom' },
+      ...(process.platform === "darwin" ? [
+        { type: 'separator' },
+        { role: 'front' },
+        { type: 'separator' },
+        { role: 'window' }
+      ] : [
+        { role: 'close' }
+      ])
+    ]
+	},
+  {
+    role: 'help',
+    submenu: [
+      {
+        label: 'Submit an issue',
+        click: async () => {
+          await shell.openExternal('https://github.com/macguirerintoul/Forecast/issues/new')
+        }
+      }
+    ]
+  }
+]
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
