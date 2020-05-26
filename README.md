@@ -6,6 +6,7 @@
 
 [![macOS](https://img.shields.io/badge/macOS-Download-green.svg)](https://forecast.macguire.me/download)
 [![Windows](https://img.shields.io/badge/Windows-Download-green.svg)](https://forecast.macguire.me/download)
+[![Windows](https://img.shields.io/badge/Linux-Download-green.svg)](https://forecast.macguire.me/download)
 [![License](https://img.shields.io/github/license/macguirerintoul/Forecast)](/LICENSE)
 [![Build Status](https://travis-ci.com/macguirerintoul/Forecast.svg?branch=master)](https://travis-ci.com/macguirerintoul/Forecast)
 </div>
@@ -20,7 +21,7 @@ When you add an item to your Forecast, you give it a title and a date. Then, For
 
 ## Demo
 
-You can try it out for yourself at [forecast.macguire.me](https://forecast.macguire.me/download).
+[![Demo](https://res.cloudinary.com/macguire/video/upload/c_scale,q_auto,w_400/v1590461627/Forecast/videos/demo2.gif)](https://res.cloudinary.com/macguire/video/upload/c_scale,q_auto,w_400/v1590461627/Forecast/videos/demo2.gif "Demo")
 
 ## Where can I get it?
 
