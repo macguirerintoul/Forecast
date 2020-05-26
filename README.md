@@ -6,6 +6,7 @@
 
 [![macOS](https://img.shields.io/badge/macOS-Download-green.svg)](https://forecast.macguire.me/download)
 [![Windows](https://img.shields.io/badge/Windows-Download-green.svg)](https://forecast.macguire.me/download)
+[![Windows](https://img.shields.io/badge/Linux-Download-green.svg)](https://forecast.macguire.me/download)
 [![License](https://img.shields.io/github/license/macguirerintoul/Forecast)](/LICENSE)
 [![Build Status](https://travis-ci.com/macguirerintoul/Forecast.svg?branch=master)](https://travis-ci.com/macguirerintoul/Forecast)
 </div>
