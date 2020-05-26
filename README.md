@@ -21,7 +21,7 @@ When you add an item to your Forecast, you give it a title and a date. Then, For
 
 ## Demo
 
-[![Demo](https://res.cloudinary.com/macguire/video/upload/q_auto/v1590461627/Forecast/videos/demo2.gif)](https://res.cloudinary.com/macguire/video/upload/q_auto/v1590461627/Forecast/videos/demo2.gif "Demo")
+[![Demo](https://res.cloudinary.com/macguire/video/upload/c_scale,q_auto,w_400/v1590461627/Forecast/videos/demo2.gif)](https://res.cloudinary.com/macguire/video/upload/c_scale,q_auto,w_400/v1590461627/Forecast/videos/demo2.gif "Demo")
 
 ## Where can I get it?
 
