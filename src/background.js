@@ -30,8 +30,7 @@ function createWindow() {
 		show: false, // wait until readyToShow event
 		backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
 		webPreferences: {
-			// Use pluginOptions.nodeIntegration, leave this alone 
-			// See https://github.com/nklayman/vue-cli-plugin-electron-builder/blob/v2/docs/guide/configuration.md#node-integration for more info 
+			// in vue.config.js
 			nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION 
 		},
 	});
